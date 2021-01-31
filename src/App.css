@@ -1,0 +1,60 @@
+.flag {
+    width: 100px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.country {
+    cursor: pointer;
+    margin: 10px;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.country-name-container,
+.flag-container {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+}
+
+.flag-container {
+    position: relative;
+    margin-top: 100px;
+}
+
+.flag-div {
+    border: 1px solid gray;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 80%;
+}
+
+.flag {
+    border: 1px solid grey;
+}
+
+.selected {
+    background-color: rgb(186, 245, 186);
+}
+
+.chosenCountry {
+    position: absolute;
+    /* display: none; */
+}
+
+/* .selected ~ .chosenCountry {
+    display: block;
+} */
+
+.hide {
+    display: none;
+}
