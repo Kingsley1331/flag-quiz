@@ -97,6 +97,10 @@ const App = () => {
             if (el.classList.contains("selected") && selections.selectedFlag) {
                 el.classList.add("hide");
                 el.classList.remove("selected");
+               // el.classList.add('paired')
+            }else if(!selections.selectedFlag){
+                el.classList.remove("hide");
+                // el.classList.add("selected");
             }
         });
     };
@@ -115,7 +119,7 @@ const App = () => {
                         selectedCountry={selections.selectedCountry}
                     />
                 </div>
-                <div className="flag-container">
+                <div className="flag-container" >
                     <Flags
                         dispatch={dispatch}
                         countryInfo={countries}

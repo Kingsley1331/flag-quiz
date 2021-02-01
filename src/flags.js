@@ -10,7 +10,8 @@ const Flags = (props) => {
     } = props;
 
     //const myRef = useRef(null);
-    // console.log("selectedFlag", selectedFlag);
+     console.log("selectedFlag", selectedFlag);
+      console.log("selectedCountry", selectedCountry===selectedFlag?"blue":"none");
 
     const [selected, setSelected] = useState(false);
 
@@ -35,6 +36,7 @@ const Flags = (props) => {
                             }}
                             // key={country.name}
                             data-set={country.name}
+                            // style={{backgroundColor:selectedCountry===selectedFlag?"blue":"none"}}
                         >
                             <img className="flag" src={country.flag} />
                         </div>
