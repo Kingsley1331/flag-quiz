@@ -43,13 +43,12 @@ const App = () => {
 
             setCountries(nameFlagData(data));
         }
-
         fetchData();
     }, []);
 
     useEffect(() => {
         highlightSelection();
-        checkIfpairSelected();
+        checkSelections();
     }, [selections]);
 
     const containerRef = useRef();
@@ -68,16 +67,16 @@ const App = () => {
     }
 
     function manageSelections(names, list) {
-        names.forEach((el) => {
-            if (el.dataset.set === selections[list]) {
-                el.classList.add("selected");
+        names.forEach((name) => {
+            if (name.dataset.set === selections[list]) {
+                name.classList.add("selected");
             } else {
-                el.classList.remove("selected");
+                name.classList.remove("selected");
             }
         });
     }
 
-    const checkIfpairSelected = () => {
+    const checkSelections = () => {
         const countryNames = Array.from(
             containerRef.current.getElementsByClassName("country")
         );
@@ -86,23 +85,39 @@ const App = () => {
             containerRef.current.getElementsByClassName("flag-div")
         );
 
-        flags.forEach((el, i) => {
-            if (el.classList.contains("selected")) {
-                // countryNames[i].classList.remove("selected");
-                // countryNames[i].classList.add("paired");
-            }
-        });
+        checkIfCountryNameSelected(countryNames);
+        checkIfPaired(flags);
+    };
 
-        countryNames.forEach((el) => {
-            if (el.classList.contains("selected") && selections.selectedFlag) {
-                el.classList.add("hide");
-                el.classList.remove("selected");
-               // el.classList.add('paired')
-            }else if(!selections.selectedFlag){
-                el.classList.remove("hide");
-                // el.classList.add("selected");
+    const checkIfCountryNameSelected = (countryNames) => {
+        countryNames.forEach((countryName) => {
+            if (
+                countryName.classList.contains("selected") &&
+                selections.selectedFlag
+            ) {
+                countryName.classList.add("hide");
+                countryName.classList.remove("selected");
+            } else if (!selections.selectedFlag) {
+                countryName.classList.remove("hide");
             }
         });
+    };
+
+    const checkIfPaired = (flags) => {
+        if (selections.selectedCountry && selections.selectedFlag) {
+            flags.forEach((flag, i) => {
+                if (flag.classList.contains("selected")) {
+                    flag.classList.remove("selected");
+                    flag.classList.add("paired");
+                }
+            });
+        } else {
+            flags.forEach((flag, i) => {
+                if (flag.classList.contains("paired")) {
+                    flag.classList.remove("paired");
+                }
+            });
+        }
     };
 
     return (
@@ -119,7 +134,7 @@ const App = () => {
                         selectedCountry={selections.selectedCountry}
                     />
                 </div>
-                <div className="flag-container" >
+                <div className="flag-container">
                     <Flags
                         dispatch={dispatch}
                         countryInfo={countries}
@@ -134,9 +149,3 @@ const App = () => {
 };
 
 export default App;
-
-//flag background turns blue when paired
-//name decouples from flag when paired flag clicked
-//everything continues as normal with paired sets ignored
-//when everything is paired click submit
-//there will be a count down timer
