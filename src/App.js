@@ -31,6 +31,25 @@ const App = () => {
         selectedCountry: "",
     });
 
+    const gamesState = {
+        countries: [
+            "unselected",
+            "unselected",
+            "unselected",
+            "unselected",
+            "unselected",
+        ],
+        flags: [
+            "unselected",
+            "unselected",
+            "unselected",
+            "unselected",
+            "unselected",
+        ],
+    };
+
+    const [optionState, setOptionState] = useState("unselected");
+
     const [countries, setCountries] = useState([{ name: "", flag: "" }]);
 
     useEffect(() => {
@@ -67,13 +86,37 @@ const App = () => {
     }
 
     function manageSelections(names, list) {
-        names.forEach((name) => {
-            if (name.dataset.set === selections[list]) {
+        if (names === "country") {
+            var statusObject = gamesState.countries;
+        } else {
+            var statusObject = gamesState.flags;
+        }
+
+        names.forEach((name, i) => {
+            if (
+                name.dataset.set === selections[list] &&
+                name.dataset.set !== ""
+            ) {
+                // debugger;
                 name.classList.add("selected");
+                setOptionState("selected");
+                if (list === "selectedCountry") {
+                    gamesState.countries[i] = "selected";
+                } else {
+                    gamesState.flags[i] = "selected";
+                }
             } else {
                 name.classList.remove("selected");
+                setOptionState("unselected");
+                if (list === "selectedCountry") {
+                    gamesState.countries[i] = "unselected";
+                } else {
+                    gamesState.flags[i] = "unselected";
+                }
             }
         });
+
+        console.log("gamesState", gamesState);
     }
 
     const checkSelections = () => {
