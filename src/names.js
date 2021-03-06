@@ -8,20 +8,25 @@ const Names = (props) => {
         selectedCountry,
     } = props;
 
+    // console.log("selectedCountries", selectedCountry);
     return (
         <>
-            {countryInfo.map((country) => {
+            {countryInfo.map((country, index) => {
                 return (
                     <p
                         className="country"
                         onClick={(event) => {
                             dispatch({
                                 type: "choose-country",
-                                selectedCountry:
-                                    country.name == selectedCountry
-                                        ? ""
-                                        : country.name,
+                                selectedCountry: country.name,
+                                // country.name == selectedCountry
+                                //     ? ""
+                                //     : country.name,
                             });
+                            // console.log(
+                            //     "country-name " + country.name,
+                            //     "selectedCountry " + selectedCountry
+                            // );
                             highlightSelection(event);
                         }}
                         key={country.name}

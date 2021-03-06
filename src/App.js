@@ -7,15 +7,35 @@ import Flags from "./flags";
 import "./App.css";
 
 function reducer(state, action) {
+    // debugger;
+    const index = action.flags.index;
     switch (action.type) {
         case "choose-flag":
-            return { ...state, selectedFlag: action.selectedFlag };
+            //return { ...state, selectedFlag: action.selectedFlag };
+
+            return {
+                ...state,
+                flags: {
+                    ...state.flags,
+                    [index]: {
+                        country: action.flags[index].country,
+                        status: action.flags[index].status,
+                    },
+                },
+            };
+
         case "choose-country":
             return { ...state, selectedCountry: action.selectedCountry };
         default:
             return state;
     }
 }
+
+// flags: {
+//     country: country.name,
+//     status: selected,
+//     index: index,
+// },
 
 function nameFlagData(countryData) {
     const filteredData = countryData.map((country) => {
@@ -26,25 +46,43 @@ function nameFlagData(countryData) {
 }
 
 const App = () => {
+    // const [selections, dispatch] = useReducer(reducer, {
+    //     selectedFlag: "",
+    //     selectedCountry: "",
+    // });
+
     const [selections, dispatch] = useReducer(reducer, {
-        selectedFlag: "",
-        selectedCountry: "",
+        countries: {
+            0: { country: "", status: "unselected" },
+            1: { country: "", status: "unselected" },
+            2: { country: "", status: "unselected" },
+            3: { country: "", status: "unselected" },
+            4: { country: "", status: "unselected" },
+        },
+        flags: {
+            0: { country: "", status: "unselected" },
+            1: { country: "", status: "unselected" },
+            2: { country: "", status: "unselected" },
+            3: { country: "", status: "unselected" },
+            4: { country: "", status: "unselected" },
+        },
     });
 
+    console.log("selections", selections.flags);
     const gamesState = {
         countries: [
-            "unselected",
-            "unselected",
-            "unselected",
-            "unselected",
-            "unselected",
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
         ],
         flags: [
-            "unselected",
-            "unselected",
-            "unselected",
-            "unselected",
-            "unselected",
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
+            { country: "", status: "unselected" },
         ],
     };
 
@@ -99,7 +137,7 @@ const App = () => {
             ) {
                 // debugger;
                 name.classList.add("selected");
-                setOptionState("selected");
+                //   setOptionState("selected");
                 if (list === "selectedCountry") {
                     gamesState.countries[i] = "selected";
                 } else {
@@ -107,7 +145,7 @@ const App = () => {
                 }
             } else {
                 name.classList.remove("selected");
-                setOptionState("unselected");
+                //   setOptionState("unselected");
                 if (list === "selectedCountry") {
                     gamesState.countries[i] = "unselected";
                 } else {
@@ -116,7 +154,7 @@ const App = () => {
             }
         });
 
-        console.log("gamesState", gamesState);
+        // console.log("gamesState", gamesState);
     }
 
     const checkSelections = () => {
@@ -183,7 +221,7 @@ const App = () => {
                         countryInfo={countries}
                         highlightSelection={highlightSelection}
                         selectedCountry={selections.selectedCountry}
-                        selectedFlag={selections.selectedFlag}
+                        selectedFlag={selections.flags}
                     />
                 </div>
             </div>
