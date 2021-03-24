@@ -8,7 +8,9 @@ import "./App.css";
 
 function reducer(state, action) {
     // debugger;
-    const index = action.flags.index;
+    const index = action.flags ? action.flags.index : action.countries.index;
+
+    // const index = action.countries.index;
     switch (action.type) {
         case "choose-flag":
             //return { ...state, selectedFlag: action.selectedFlag };
@@ -25,7 +27,16 @@ function reducer(state, action) {
             };
 
         case "choose-country":
-            return { ...state, selectedCountry: action.selectedCountry };
+            return {
+                ...state,
+                countries: {
+                    ...state.countries,
+                    [index]: {
+                        country: action.countries[index].country,
+                        status: action.countries[index].status,
+                    },
+                },
+            };
         default:
             return state;
     }
@@ -68,7 +79,7 @@ const App = () => {
         },
     });
 
-    console.log("selections", selections.flags);
+    console.log("selections", selections);
     const gamesState = {
         countries: [
             { country: "", status: "unselected" },
@@ -212,7 +223,7 @@ const App = () => {
                         dispatch={dispatch}
                         countryInfo={countries}
                         highlightSelection={highlightSelection}
-                        selectedCountry={selections.selectedCountry}
+                        selectedCountry={selections.countries}
                     />
                 </div>
                 <div className="flag-container">
