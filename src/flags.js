@@ -5,6 +5,10 @@ const Flags = (props) => {
 
     const [selected, setSelected] = useState(false);
 
+    function stateResetter(index) {
+        //reset everything except for index
+    }
+
     return (
         <>
             {countryInfo.map((country, index) => {
@@ -13,6 +17,9 @@ const Flags = (props) => {
                         <div
                             // ref={myRef}
                             className="flag-div"
+                            //STATE RESETTER FUNCTION REQUIRED
+                            //WITH EXEMPTION CLICKEDINDEX
+
                             onClick={() => {
                                 dispatch({
                                     type: "choose-flag",
@@ -30,7 +37,7 @@ const Flags = (props) => {
                                 });
 
                                 setSelected(true);
-                                highlightSelection();
+                                // highlightSelection();
                             }}
                             // key={country.name}
                             data-set={country.name}

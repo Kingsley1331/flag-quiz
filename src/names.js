@@ -30,7 +30,7 @@ const Names = (props) => {
                                 },
                             });
 
-                            highlightSelection(event);
+                            // highlightSelection(event);
                         }}
                         key={country.name}
                         data-set={country.name}
