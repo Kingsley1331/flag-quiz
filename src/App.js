@@ -8,6 +8,7 @@ import "./App.css";
 
 function reducer(state, action) {
     const index = action.flags ? action.flags.index : action.countries.index;
+    // console.log("index", action.flags);
 
     switch (action.type) {
         case "choose-flag":
@@ -64,9 +65,9 @@ const App = () => {
         },
     });
 
-    const [countries, setCountries] = useState([{ name: "", flag: "" }]);
+    const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
 
-    console.log("countries", countries);
+    // console.log("countries", countries);
 
     useEffect(() => {
         async function fetchData() {
@@ -102,7 +103,7 @@ const App = () => {
                 <div className="country-name-container">
                     <Names
                         dispatch={dispatch}
-                        countryInfo={countries}
+                        countryInfo={countriesFromApi}
                         // highlightSelection={highlightSelection}
                         selectedCountry={selections.countries}
                     />
@@ -110,10 +111,10 @@ const App = () => {
                 <div className="flag-container">
                     <Flags
                         dispatch={dispatch}
-                        countryInfo={countries}
+                        countryInfo={countriesFromApi}
                         // highlightSelection={highlightSelection}
-                        selectedCountry={selections.selectedCountry}
-                        selectedFlag={selections.flags}
+                        gameState={selections}
+                        //selectedFlag={selections.flags}
                     />
                 </div>
             </div>

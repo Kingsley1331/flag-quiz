@@ -1,12 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Flags = (props) => {
-    const { countryInfo, dispatch, highlightSelection, selectedFlag } = props;
+    const {
+        countryInfo,
+        dispatch,
+        highlightSelection,
+        selectedFlag,
+        gameState,
+    } = props;
+
+    console.log("gameState", gameState.flags);
 
     const [selected, setSelected] = useState(false);
 
-    function stateResetter(index) {
-        //reset everything except for index
+    function isFlagSelected() {
+        let flag;
+        for (flag in gameState.flags) {
+            let status = gameState.flags[flag].status;
+            if (status === "selected") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    useEffect(() => {
+        // highlightSelection();
+        // checkSelections();
+        console.log(isFlagSelected());
+    }, [gameState]);
+
+    function stateResetter() {
+        countryInfo.map((country, index) => {
+            if (gameState.flags[index].status === "selected") {
+                dispatch({
+                    type: "choose-flag",
+                    flags: {
+                        [index]: {
+                            country: country.name,
+                            status: "unselected",
+                        },
+                        index,
+                    },
+                });
+            }
+        });
     }
 
     return (
@@ -15,20 +53,18 @@ const Flags = (props) => {
                 return (
                     <div key={country.name}>
                         <div
-                            // ref={myRef}
                             className="flag-div"
-                            //STATE RESETTER FUNCTION REQUIRED
-                            //WITH EXEMPTION CLICKEDINDEX
-
                             onClick={() => {
+                                stateResetter();
+                                // console.log(isFlagSelected());
                                 dispatch({
                                     type: "choose-flag",
                                     flags: {
                                         [index]: {
                                             country: country.name,
                                             status:
-                                                selectedFlag[index].status ===
-                                                "selected"
+                                                gameState.flags[index]
+                                                    .status === "selected"
                                                     ? "unselected"
                                                     : "selected",
                                         },
@@ -38,6 +74,7 @@ const Flags = (props) => {
 
                                 setSelected(true);
                                 // highlightSelection();
+                                // console.log(isFlagSelected());
                             }}
                             // key={country.name}
                             data-set={country.name}
