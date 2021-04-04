@@ -9,9 +9,33 @@ const Flags = (props) => {
         gameState,
     } = props;
 
-    console.log("gameState", gameState.flags);
+    // console.log("gameState", gameState.flags);
 
-    const [selected, setSelected] = useState(false);
+    const [flagIndex, setFlagIndex] = useState(null);
+
+    useEffect(() => {
+        // highlightSelection();
+        // checkSelections();
+        // console.log("isFlagSelected", isFlagSelected());
+        // console.log("isNameSelected", isNameSelected());
+        doWeHavePairing();
+    }, [gameState]);
+
+    function doWeHavePairing() {
+        if (isNameSelected() && isFlagSelected()) {
+            console.log("flagIndex", flagIndex);
+            dispatch({
+                type: "choose-flag",
+                flag: {
+                    [flagIndex.index]: {
+                        country: flagIndex.name,
+                        status: "paired",
+                    },
+                    index: flagIndex.index,
+                },
+            });
+        }
+    }
 
     function isFlagSelected() {
         let flag;
@@ -24,18 +48,24 @@ const Flags = (props) => {
         return false;
     }
 
-    useEffect(() => {
-        // highlightSelection();
-        // checkSelections();
-        console.log(isFlagSelected());
-    }, [gameState]);
+    function isNameSelected() {
+        let name;
+        for (name in gameState.countries) {
+            let status = gameState.countries[name].status;
+            if (status === "selected") {
+                return true;
+            }
+        }
+        return false;
+    }
 
     function stateResetter() {
         countryInfo.map((country, index) => {
+            // debugger;
             if (gameState.flags[index].status === "selected") {
                 dispatch({
                     type: "choose-flag",
-                    flags: {
+                    flag: {
                         [index]: {
                             country: country.name,
                             status: "unselected",
@@ -43,6 +73,7 @@ const Flags = (props) => {
                         index,
                     },
                 });
+                //debugger;
             }
         });
     }
@@ -57,22 +88,25 @@ const Flags = (props) => {
                             onClick={() => {
                                 stateResetter();
                                 // console.log(isFlagSelected());
+                                // debugger;
                                 dispatch({
                                     type: "choose-flag",
-                                    flags: {
+                                    flag: {
                                         [index]: {
                                             country: country.name,
                                             status:
                                                 gameState.flags[index]
-                                                    .status === "selected"
+                                                    .status === "selected" ||
+                                                gameState.flags[index]
+                                                    .status === "paired"
                                                     ? "unselected"
                                                     : "selected",
                                         },
                                         index,
                                     },
                                 });
-
-                                setSelected(true);
+                                setFlagIndex({ index, name: country.name });
+                                // setSelected(true);
                                 // highlightSelection();
                                 // console.log(isFlagSelected());
                             }}

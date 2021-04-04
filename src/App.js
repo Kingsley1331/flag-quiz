@@ -7,7 +7,9 @@ import Flags from "./flags";
 import "./App.css";
 
 function reducer(state, action) {
-    const index = action.flags ? action.flags.index : action.countries.index;
+    // console.log("index", action);
+
+    const index = action.flag ? action.flag.index : action.country.index;
     // console.log("index", action.flags);
 
     switch (action.type) {
@@ -17,8 +19,8 @@ function reducer(state, action) {
                 flags: {
                     ...state.flags,
                     [index]: {
-                        country: action.flags[index].country,
-                        status: action.flags[index].status,
+                        country: action.flag[index].country,
+                        status: action.flag[index].status,
                     },
                 },
             };
@@ -29,8 +31,8 @@ function reducer(state, action) {
                 countries: {
                     ...state.countries,
                     [index]: {
-                        country: action.countries[index].country,
-                        status: action.countries[index].status,
+                        country: action.country[index].country,
+                        status: action.country[index].status,
                     },
                 },
             };
@@ -89,7 +91,8 @@ const App = () => {
 
     const containerRef = useRef();
 
-    console.log("selections", selections);
+    console.log("countries", selections.countries);
+    console.log("flags", selections.flags);
 
     // containerRef.current.getElementsByClassName("country")
     // containerRef.current.getElementsByClassName("flag-div")
@@ -106,6 +109,7 @@ const App = () => {
                         countryInfo={countriesFromApi}
                         // highlightSelection={highlightSelection}
                         selectedCountry={selections.countries}
+                        gameState={selections}
                     />
                 </div>
                 <div className="flag-container">
