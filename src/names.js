@@ -70,7 +70,9 @@ const Names = (props) => {
                                         country: country.name,
                                         status:
                                             gameState.countries[index]
-                                                .status === "selected"
+                                                .status === "selected" ||
+                                            gameState.countries[index]
+                                                .status === "paired"
                                                 ? "unselected"
                                                 : "selected",
                                     },

@@ -22,8 +22,10 @@ const Flags = (props) => {
     }, [gameState]);
 
     function doWeHavePairing() {
-        if (isNameSelected() && isFlagSelected()) {
-            console.log("flagIndex", flagIndex);
+        if (isNameSelected().check && isFlagSelected()) {
+            console.log("flagIndex", isNameSelected());
+            const countryNameDetails = isNameSelected();
+
             dispatch({
                 type: "choose-flag",
                 flag: {
@@ -34,13 +36,28 @@ const Flags = (props) => {
                     index: flagIndex.index,
                 },
             });
+
+            dispatch({
+                type: "choose-country",
+                country: {
+                    [countryNameDetails.index]: {
+                        country: countryNameDetails.name,
+                        status: "paired",
+                    },
+                    index: countryNameDetails.index,
+                },
+            });
         }
     }
 
+    // function findCountryNameIndex() {
+    //     gameState.countries;
+    // }
+
     function isFlagSelected() {
-        let flag;
-        for (flag in gameState.flags) {
-            let status = gameState.flags[flag].status;
+        let index;
+        for (index in gameState.flags) {
+            let status = gameState.flags[index].status;
             if (status === "selected") {
                 return true;
             }
@@ -49,17 +66,19 @@ const Flags = (props) => {
     }
 
     function isNameSelected() {
-        let name;
-        for (name in gameState.countries) {
-            let status = gameState.countries[name].status;
+        let index;
+        for (index in gameState.countries) {
+            let status = gameState.countries[index].status;
+            let name = gameState.countries[index].country;
             if (status === "selected") {
-                return true;
+                return { check: true, index, name };
             }
         }
-        return false;
+        return { check: false };
     }
 
     function stateResetter() {
+        console.log("gameState", gameState);
         countryInfo.map((country, index) => {
             // debugger;
             if (gameState.flags[index].status === "selected") {
