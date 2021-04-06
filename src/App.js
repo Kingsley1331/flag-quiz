@@ -85,7 +85,7 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        // highlightSelection();
+        highlightSelection();
         // checkSelections();
     }, [selections]);
 
@@ -96,6 +96,19 @@ const App = () => {
 
     // containerRef.current.getElementsByClassName("country")
     // containerRef.current.getElementsByClassName("flag-div")
+
+    function highlightSelection() {
+        let flagArray = [
+            ...containerRef.current.getElementsByClassName("flag-div"),
+        ];
+        flagArray.map((flag, index) => {
+            if (selections.flags[index].status === "selected") {
+                flag.classList.add("selected");
+            } else {
+                flag.classList.remove("selected");
+            }
+        });
+    }
 
     return (
         <>
