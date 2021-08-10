@@ -104,8 +104,10 @@ const App = () => {
         flagArray.map((flag, index) => {
             if (selections.flags[index].status === "selected") {
                 flag.classList.add("selected");
-            } else {
+            } else if (selections.flags[index].status === "unselected") {
                 flag.classList.remove("selected");
+            } else {
+                flag.classList.add("paired");
             }
         });
     }
@@ -129,7 +131,7 @@ const App = () => {
                     <Flags
                         dispatch={dispatch}
                         countryInfo={countriesFromApi}
-                        // highlightSelection={highlightSelection}
+                        highlightSelection={highlightSelection}
                         gameState={selections}
                         //selectedFlag={selections.flags}
                     />
