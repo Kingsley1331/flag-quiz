@@ -106,6 +106,21 @@ const App = () => {
                 flag.classList.add("selected");
             } else if (selections.flags[index].status === "unselected") {
                 flag.classList.remove("selected");
+                flag.classList.remove("paired");
+            } else {
+                flag.classList.add("paired");
+            }
+        });
+
+        let nameArray = [
+            ...containerRef.current.getElementsByClassName("country"),
+        ];
+        nameArray.map((flag, index) => {
+            if (selections.countries[index].status === "selected") {
+                flag.classList.add("selected");
+            } else if (selections.countries[index].status === "unselected") {
+                flag.classList.remove("selected");
+                flag.classList.remove("paired");
             } else {
                 flag.classList.add("paired");
             }
