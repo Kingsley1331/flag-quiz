@@ -153,4 +153,4 @@ export default Flags;
 //it will also be used to determine when paired status should be removed
 //recorded index in this object will then be used to determine what index the state change is applied to
 //the object should look something like this [{name:'albania', flag:'albania'},{name:'ghana', flag:'ghana'}, ...]
-//test
+//test ytesf
