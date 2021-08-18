@@ -152,3 +152,4 @@ export default Flags;
 //this object will then be referenced before any decisions is made about adding paired status(using the data attributes or known name for identification)
 //it will also be used to determine when paired status should be removed
 // recorded index in this object will then be used to determine what index the state change is applied to
+//the object should look something like this [{name:'albania', flag:'albania'},{name:'ghana', flag:'ghana'}, ...]
