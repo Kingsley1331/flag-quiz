@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+let pairings = [];
+
 const Flags = (props) => {
     const {
         countryInfo,
@@ -22,6 +24,9 @@ const Flags = (props) => {
     }, [gameState]);
 
     function doWeHavePairing() {
+        console.log("gameState updated");
+        // add code here that updates the pairins array and dispatches a change of state
+        // possibly not here but in a different function added to the useeffect
         if (isNameSelected().check && isFlagSelected()) {
             console.log("flagIndex", isNameSelected());
             const countryNameDetails = isNameSelected();
@@ -47,6 +52,13 @@ const Flags = (props) => {
                     index: countryNameDetails.index,
                 },
             });
+
+            pairings.push({
+                name: countryNameDetails.name,
+                flag: flagIndex.name,
+            });
+
+            console.log("pairings", pairings);
         }
     }
 
@@ -128,6 +140,16 @@ const Flags = (props) => {
                                 // setSelected(true);
                                 // highlightSelection();
                                 // console.log(isFlagSelected());
+
+                                if (
+                                    gameState.flags[index].status === "paired"
+                                ) {
+                                    pairings = pairings.filter((pairs) => {
+                                        return country.name !== pairs.name;
+                                    });
+
+                                    console.log("pairings", pairings);
+                                }
                             }}
                             // key={country.name}
                             data-set={country.name}
@@ -153,4 +175,5 @@ export default Flags;
 //it will also be used to determine when paired status should be removed
 //recorded index in this object will then be used to determine what index the state change is applied to
 //the object should look something like this [{name:'albania', flag:'albania'},{name:'ghana', flag:'ghana'}, ...]
-//test ytesf 4rtrtr tytyr
+
+//loop
