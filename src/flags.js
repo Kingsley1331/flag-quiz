@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
+// import { pairings } from "./utility";
+import {
+    pairingsManager,
+    addToPairings,
+    addPairedName,
+    unPairName,
+} from "./utility";
 
-let pairings = [];
+// window.pairings = [];
 
 const Flags = (props) => {
-    const {
+    let {
         countryInfo,
         dispatch,
         highlightSelection,
         selectedFlag,
         gameState,
+        // pairings,
+        //setPairings,
     } = props;
-
-    // console.log("gameState", gameState.flags);
 
     const [flagIndex, setFlagIndex] = useState(null);
 
@@ -24,12 +31,10 @@ const Flags = (props) => {
     }, [gameState]);
 
     function doWeHavePairing() {
-        console.log("gameState updated");
-        // add code here that updates the pairins array and dispatches a change of state
-        // possibly not here but in a different function added to the useeffect
+        const countryNameDetails = isNameSelected();
+
         if (isNameSelected().check && isFlagSelected()) {
             console.log("flagIndex", isNameSelected());
-            const countryNameDetails = isNameSelected();
 
             dispatch({
                 type: "choose-flag",
@@ -40,6 +45,11 @@ const Flags = (props) => {
                     },
                     index: flagIndex.index,
                 },
+            });
+
+            addToPairings({
+                name: countryNameDetails.name,
+                flag: flagIndex.name,
             });
 
             dispatch({
@@ -53,12 +63,7 @@ const Flags = (props) => {
                 },
             });
 
-            pairings.push({
-                name: countryNameDetails.name,
-                flag: flagIndex.name,
-            });
-
-            console.log("pairings", pairings);
+            // console.log("pairingss", pairings);
         }
     }
 
@@ -87,6 +92,17 @@ const Flags = (props) => {
             }
         }
         return { check: false };
+    }
+
+    function isNamePaired() {
+        let index;
+        for (index in gameState.countries) {
+            let status = gameState.countries[index].status;
+            let name = gameState.countries[index].country;
+            if (status === "paired") {
+                return { index, name };
+            }
+        }
     }
 
     function stateResetter() {
@@ -120,6 +136,7 @@ const Flags = (props) => {
                                 stateResetter();
                                 // console.log(isFlagSelected());
                                 // debugger;
+
                                 dispatch({
                                     type: "choose-flag",
                                     flag: {
@@ -141,15 +158,29 @@ const Flags = (props) => {
                                 // highlightSelection();
                                 // console.log(isFlagSelected());
 
-                                if (
-                                    gameState.flags[index].status === "paired"
-                                ) {
-                                    pairings = pairings.filter((pairs) => {
-                                        return country.name !== pairs.name;
-                                    });
+                                // if (
+                                //     gameState.flags[index].status === "paired"
+                                // ) {
 
-                                    console.log("pairings", pairings);
-                                }
+                                //     pairings.filter((pairs) => {
+                                //         return country.name !== pairs.name;
+                                //     });
+
+                                //     console.log("pairings", pairings);
+                                // }
+                                unPairName(
+                                    gameState,
+                                    index,
+                                    dispatch,
+                                    country.name
+                                );
+
+                                pairingsManager(
+                                    gameState,
+                                    index,
+                                    country.name,
+                                    "flag"
+                                );
                             }}
                             // key={country.name}
                             data-set={country.name}
@@ -157,6 +188,7 @@ const Flags = (props) => {
                             <img className="flag" src={country.flag} />
                         </div>
                         <div className="chosenCountry">
+                            {addPairedName(country.name)}
                             {/* {country.name == selectedFlag
                                 ? selectedCountry
                                 : ""} */}

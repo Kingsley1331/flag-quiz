@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { pairingsManager } from "./utility";
 
 const Names = (props) => {
     const {
@@ -80,6 +81,12 @@ const Names = (props) => {
                                 },
                             });
 
+                            pairingsManager(
+                                gameState,
+                                index,
+                                country.name,
+                                "name"
+                            );
                             // highlightSelection(event);
                         }}
                         key={country.name}

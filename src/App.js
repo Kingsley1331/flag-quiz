@@ -69,6 +69,8 @@ const App = () => {
 
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
 
+    const [pairings, setPairings] = useState([]);
+
     // console.log("countries", countries);
 
     useEffect(() => {
@@ -120,9 +122,9 @@ const App = () => {
                 flag.classList.add("selected");
             } else if (selections.countries[index].status === "unselected") {
                 flag.classList.remove("selected");
-                flag.classList.remove("paired");
+                flag.classList.remove("hide");
             } else {
-                flag.classList.add("paired");
+                flag.classList.add("hide");
             }
         });
     }
@@ -140,6 +142,8 @@ const App = () => {
                         // highlightSelection={highlightSelection}
                         selectedCountry={selections.countries}
                         gameState={selections}
+                        pairings={pairings}
+                        // setPairings={setPairings}
                     />
                 </div>
                 <div className="flag-container">
@@ -148,6 +152,8 @@ const App = () => {
                         countryInfo={countriesFromApi}
                         highlightSelection={highlightSelection}
                         gameState={selections}
+                        pairings={pairings}
+                        // setPairings={setPairings}
                         //selectedFlag={selections.flags}
                     />
                 </div>
