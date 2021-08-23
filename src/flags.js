@@ -48,7 +48,10 @@ const Flags = (props) => {
             });
 
             addToPairings({
-                name: countryNameDetails.name,
+                name: {
+                    name: countryNameDetails.name,
+                    index: countryNameDetails.index,
+                },
                 flag: flagIndex.name,
             });
 

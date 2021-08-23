@@ -1,12 +1,13 @@
 let pairings = [];
 
-export function pairingsManager(gameState, index, countryName, type, dispatch) {
+export function pairingsManager(gameState, index, countryName) {
     if (gameState.flags[index].status === "paired") {
         pairings = pairings.filter((pairs) => {
-            if (type === "flag") {
-                // unPairName(pairs.name);
-                return countryName !== pairs.flag;
-            }
+            //   if (type === "flag") {
+            // unPairName(pairs.name);
+            debugger;
+            return countryName !== pairs.flag;
+            //    }
             //  else {
             //     return countryName !== pairs.name;
             // }
@@ -24,7 +25,7 @@ export function addToPairings(pair) {
 export function addPairedName(name) {
     const pairedName = pairings.map((pair) => {
         if (name === pair.flag) {
-            return pair.name;
+            return pair.name.name;
         }
         return "";
     });
@@ -46,20 +47,23 @@ export function addPairedName(name) {
 // }
 
 export function unPairName(gameState, index, dispatch, name) {
-    debugger;
+    // debugger;
     findNameIndex(name);
     if (gameState.flags[index].status === "paired") {
         pairings.forEach((pairs) => {
-            dispatch({
-                type: "choose-country",
-                country: {
-                    [index]: {
-                        country: pairs.name,
-                        status: "unselected",
+            if (pairs.flag === name) {
+                let nameIndex = pairs.name.index;
+                dispatch({
+                    type: "choose-country",
+                    country: {
+                        [nameIndex]: {
+                            country: pairs.name.name,
+                            status: "unselected",
+                        },
+                        index: nameIndex,
                     },
-                    index: index,
-                },
-            });
+                });
+            }
 
             //  else {
             //     return countryName !== pairs.name;

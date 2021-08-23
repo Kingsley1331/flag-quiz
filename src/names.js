@@ -81,12 +81,12 @@ const Names = (props) => {
                                 },
                             });
 
-                            pairingsManager(
-                                gameState,
-                                index,
-                                country.name,
-                                "name"
-                            );
+                            // pairingsManager(
+                            //     gameState,
+                            //     index,
+                            //     country.name,
+                            //     "name"
+                            // );
                             // highlightSelection(event);
                         }}
                         key={country.name}
