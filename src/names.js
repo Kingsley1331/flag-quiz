@@ -10,12 +10,7 @@ const Names = (props) => {
         gameState,
     } = props;
 
-    useEffect(() => {
-        // highlightSelection();
-        // checkSelections();
-        // console.log("isFlagSelected", isFlagSelected());
-        // console.log("isNameSelected", isNameSelected());
-    }, [gameState]);
+    useEffect(() => {}, [gameState]);
 
     function isFlagSelected() {
         let flag;
@@ -80,14 +75,6 @@ const Names = (props) => {
                                     index,
                                 },
                             });
-
-                            // pairingsManager(
-                            //     gameState,
-                            //     index,
-                            //     country.name,
-                            //     "name"
-                            // );
-                            // highlightSelection(event);
                         }}
                         key={country.name}
                         data-set={country.name}

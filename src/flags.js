@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { pairings } from "./utility";
+
 import {
     pairingsManager,
     addToPairings,
@@ -7,26 +7,13 @@ import {
     unPairName,
 } from "./utility";
 
-// window.pairings = [];
-
 const Flags = (props) => {
-    let {
-        countryInfo,
-        dispatch,
-        highlightSelection,
-        selectedFlag,
-        gameState,
-        // pairings,
-        //setPairings,
-    } = props;
+    let { countryInfo, dispatch, highlightSelection, selectedFlag, gameState } =
+        props;
 
     const [flagIndex, setFlagIndex] = useState(null);
 
     useEffect(() => {
-        // highlightSelection();
-        // checkSelections();
-        // console.log("isFlagSelected", isFlagSelected());
-        // console.log("isNameSelected", isNameSelected());
         doWeHavePairing();
     }, [gameState]);
 
@@ -65,14 +52,8 @@ const Flags = (props) => {
                     index: countryNameDetails.index,
                 },
             });
-
-            // console.log("pairingss", pairings);
         }
     }
-
-    // function findCountryNameIndex() {
-    //     gameState.countries;
-    // }
 
     function isFlagSelected() {
         let index;
@@ -111,7 +92,6 @@ const Flags = (props) => {
     function stateResetter() {
         console.log("gameState", gameState);
         countryInfo.map((country, index) => {
-            // debugger;
             if (gameState.flags[index].status === "selected") {
                 dispatch({
                     type: "choose-flag",
@@ -123,7 +103,6 @@ const Flags = (props) => {
                         index,
                     },
                 });
-                //debugger;
             }
         });
     }
@@ -137,8 +116,6 @@ const Flags = (props) => {
                             className="flag-div"
                             onClick={() => {
                                 stateResetter();
-                                // console.log(isFlagSelected());
-                                // debugger;
 
                                 dispatch({
                                     type: "choose-flag",
@@ -157,20 +134,7 @@ const Flags = (props) => {
                                     },
                                 });
                                 setFlagIndex({ index, name: country.name });
-                                // setSelected(true);
-                                // highlightSelection();
-                                // console.log(isFlagSelected());
 
-                                // if (
-                                //     gameState.flags[index].status === "paired"
-                                // ) {
-
-                                //     pairings.filter((pairs) => {
-                                //         return country.name !== pairs.name;
-                                //     });
-
-                                //     console.log("pairings", pairings);
-                                // }
                                 unPairName(
                                     gameState,
                                     index,
@@ -185,16 +149,12 @@ const Flags = (props) => {
                                     "flag"
                                 );
                             }}
-                            // key={country.name}
                             data-set={country.name}
                         >
                             <img className="flag" src={country.flag} />
                         </div>
                         <div className="chosenCountry">
                             {addPairedName(country.name)}
-                            {/* {country.name == selectedFlag
-                                ? selectedCountry
-                                : ""} */}
                         </div>
                     </div>
                 );
@@ -204,11 +164,3 @@ const Flags = (props) => {
 };
 
 export default Flags;
-
-//there needs to be an object that records the selected pairs probably name and index
-//this object will then be referenced before any decisions is made about adding paired status(using the data attributes or known name for identification)
-//it will also be used to determine when paired status should be removed
-//recorded index in this object will then be used to determine what index the state change is applied to
-//the object should look something like this [{name:'albania', flag:'albania'},{name:'ghana', flag:'ghana'}, ...]
-
-//loop

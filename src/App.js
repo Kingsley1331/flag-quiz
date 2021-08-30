@@ -7,10 +7,7 @@ import Flags from "./flags";
 import "./App.css";
 
 function reducer(state, action) {
-    // console.log("index", action);
-
     const index = action.flag ? action.flag.index : action.country.index;
-    // console.log("index", action.flags);
 
     switch (action.type) {
         case "choose-flag":
@@ -71,8 +68,6 @@ const App = () => {
 
     const [pairings, setPairings] = useState([]);
 
-    // console.log("countries", countries);
-
     useEffect(() => {
         async function fetchData() {
             const response = await fetch(
@@ -88,16 +83,12 @@ const App = () => {
 
     useEffect(() => {
         highlightSelection();
-        // checkSelections();
     }, [selections]);
 
     const containerRef = useRef();
 
     console.log("countries", selections.countries);
     console.log("flags", selections.flags);
-
-    // containerRef.current.getElementsByClassName("country")
-    // containerRef.current.getElementsByClassName("flag-div")
 
     function highlightSelection() {
         let flagArray = [
@@ -139,11 +130,9 @@ const App = () => {
                     <Names
                         dispatch={dispatch}
                         countryInfo={countriesFromApi}
-                        // highlightSelection={highlightSelection}
                         selectedCountry={selections.countries}
                         gameState={selections}
                         pairings={pairings}
-                        // setPairings={setPairings}
                     />
                 </div>
                 <div className="flag-container">
@@ -153,8 +142,6 @@ const App = () => {
                         highlightSelection={highlightSelection}
                         gameState={selections}
                         pairings={pairings}
-                        // setPairings={setPairings}
-                        //selectedFlag={selections.flags}
                     />
                 </div>
             </div>
