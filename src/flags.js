@@ -8,8 +8,7 @@ import {
 } from "./utility";
 
 const Flags = (props) => {
-    let { countryInfo, dispatch, highlightSelection, selectedFlag, gameState } =
-        props;
+    let { countryInfo, dispatch, gameState } = props;
 
     const [flagIndex, setFlagIndex] = useState(null);
 
@@ -78,17 +77,6 @@ const Flags = (props) => {
         return { check: false };
     }
 
-    function isNamePaired() {
-        let index;
-        for (index in gameState.countries) {
-            let status = gameState.countries[index].status;
-            let name = gameState.countries[index].country;
-            if (status === "paired") {
-                return { index, name };
-            }
-        }
-    }
-
     function stateResetter() {
         console.log("gameState", gameState);
         countryInfo.map((country, index) => {
@@ -151,7 +139,11 @@ const Flags = (props) => {
                             }}
                             data-set={country.name}
                         >
-                            <img className="flag" src={country.flag} />
+                            <img
+                                className="flag"
+                                alt="flag-pic"
+                                src={country.flag}
+                            />
                         </div>
                         <div className="chosenCountry">
                             {addPairedName(country.name)}

@@ -47,10 +47,32 @@ export function unPairName(gameState, index, dispatch, name) {
     }
 }
 
-function findNameIndex(names, flagName) {
+function findNameIndex(flagName) {
     pairings.map((pair) => {
         if (pair.flag === flagName) {
             return pair.name;
+        }
+    });
+}
+
+export function highlightSelection(
+    containerRef,
+    selections,
+    type,
+    elementClassName,
+    selectionStyle
+) {
+    let countryArray = [
+        ...containerRef.current.getElementsByClassName(elementClassName),
+    ];
+    countryArray.map((flag, index) => {
+        if (selections[type][index].status === "selected") {
+            flag.classList.add("selected");
+        } else if (selections[type][index].status === "unselected") {
+            flag.classList.remove("selected");
+            flag.classList.remove(selectionStyle);
+        } else {
+            flag.classList.add(selectionStyle);
         }
     });
 }

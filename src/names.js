@@ -1,38 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { pairingsManager } from "./utility";
+import React, { useEffect } from "react";
 
 const Names = (props) => {
-    const {
-        countryInfo,
-        dispatch,
-        highlightSelection,
-        selectedCountry,
-        gameState,
-    } = props;
+    const { countryInfo, dispatch, gameState } = props;
 
     useEffect(() => {}, [gameState]);
-
-    function isFlagSelected() {
-        let flag;
-        for (flag in gameState.flags) {
-            let status = gameState.flags[flag].status;
-            if (status === "selected") {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function isNameSelected() {
-        let name;
-        for (name in gameState.countries) {
-            let status = gameState.countries[name].status;
-            if (status === "selected") {
-                return true;
-            }
-        }
-        return false;
-    }
 
     function stateResetter() {
         countryInfo.map((country, index) => {

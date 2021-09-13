@@ -6,6 +6,8 @@ import Names from "./names";
 import Flags from "./flags";
 import "./App.css";
 
+import { highlightSelection } from "./utility";
+
 function reducer(state, action) {
     const index = action.flag ? action.flag.index : action.country.index;
 
@@ -66,8 +68,6 @@ const App = () => {
 
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
 
-    const [pairings, setPairings] = useState([]);
-
     useEffect(() => {
         async function fetchData() {
             const response = await fetch(
@@ -81,67 +81,43 @@ const App = () => {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        highlightSelection();
-    }, [selections]);
-
     const containerRef = useRef();
+    useEffect(() => {
+        highlightSelection(
+            containerRef,
+            selections,
+            "flags",
+            "flag-div",
+            "paired"
+        );
+        highlightSelection(
+            containerRef,
+            selections,
+            "countries",
+            "country",
+            "hide"
+        );
+    }, [selections]);
 
     console.log("countries", selections.countries);
     console.log("flags", selections.flags);
 
-    function highlightSelection() {
-        let flagArray = [
-            ...containerRef.current.getElementsByClassName("flag-div"),
-        ];
-        flagArray.map((flag, index) => {
-            if (selections.flags[index].status === "selected") {
-                flag.classList.add("selected");
-            } else if (selections.flags[index].status === "unselected") {
-                flag.classList.remove("selected");
-                flag.classList.remove("paired");
-            } else {
-                flag.classList.add("paired");
-            }
-        });
-
-        let nameArray = [
-            ...containerRef.current.getElementsByClassName("country"),
-        ];
-        nameArray.map((flag, index) => {
-            if (selections.countries[index].status === "selected") {
-                flag.classList.add("selected");
-            } else if (selections.countries[index].status === "unselected") {
-                flag.classList.remove("selected");
-                flag.classList.remove("hide");
-            } else {
-                flag.classList.add("hide");
-            }
-        });
-    }
-
     return (
         <>
             <h1 className="App-header">Flag Quiz</h1>
-            flag {selections.selectedFlag} <br />
-            country {selections.selectedCountry} <br />
             <div ref={containerRef} className="main-container">
                 <div className="country-name-container">
                     <Names
                         dispatch={dispatch}
                         countryInfo={countriesFromApi}
-                        selectedCountry={selections.countries}
                         gameState={selections}
-                        pairings={pairings}
                     />
                 </div>
                 <div className="flag-container">
                     <Flags
                         dispatch={dispatch}
                         countryInfo={countriesFromApi}
-                        highlightSelection={highlightSelection}
                         gameState={selections}
-                        pairings={pairings}
                     />
                 </div>
             </div>
