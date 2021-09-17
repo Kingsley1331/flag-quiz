@@ -32,16 +32,14 @@ export function unPairName(gameState, index, dispatch, name) {
         pairings.forEach((pairs) => {
             if (pairs.flag === name) {
                 let nameIndex = pairs.name.index;
-                dispatch({
-                    type: "choose-country",
-                    country: {
-                        [nameIndex]: {
-                            country: pairs.name.name,
-                            status: "unselected",
-                        },
-                        index: nameIndex,
-                    },
-                });
+                dispatcher(
+                    dispatch,
+                    "choose-country",
+                    "unselected",
+                    nameIndex,
+                    pairs.name.name,
+                    "country"
+                );
             }
         });
     }
@@ -76,3 +74,20 @@ export function highlightSelection(
         }
     });
 }
+
+export function dispatcher(dispatch, type, status, index, name, dataType) {
+    dispatch({
+        type,
+        [dataType]: {
+            [index]: {
+                country: name,
+                status,
+            },
+            index,
+        },
+    });
+}
+
+//move stateResetter to utilities
+//update dispatch in both click functions
+//update from country to name

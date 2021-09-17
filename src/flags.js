@@ -5,6 +5,7 @@ import {
     addToPairings,
     addPairedName,
     unPairName,
+    dispatcher,
 } from "./utility";
 
 const Flags = (props) => {
@@ -22,16 +23,14 @@ const Flags = (props) => {
         if (isNameSelected().check && isFlagSelected()) {
             console.log("flagIndex", isNameSelected());
 
-            dispatch({
-                type: "choose-flag",
-                flag: {
-                    [flagIndex.index]: {
-                        country: flagIndex.name,
-                        status: "paired",
-                    },
-                    index: flagIndex.index,
-                },
-            });
+            dispatcher(
+                dispatch,
+                "choose-flag",
+                "paired",
+                flagIndex.index,
+                flagIndex.name,
+                "flag"
+            );
 
             addToPairings({
                 name: {
@@ -41,16 +40,14 @@ const Flags = (props) => {
                 flag: flagIndex.name,
             });
 
-            dispatch({
-                type: "choose-country",
-                country: {
-                    [countryNameDetails.index]: {
-                        country: countryNameDetails.name,
-                        status: "paired",
-                    },
-                    index: countryNameDetails.index,
-                },
-            });
+            dispatcher(
+                dispatch,
+                "choose-country",
+                "paired",
+                countryNameDetails.index,
+                countryNameDetails.name,
+                "country"
+            );
         }
     }
 
@@ -81,16 +78,14 @@ const Flags = (props) => {
         console.log("gameState", gameState);
         countryInfo.map((country, index) => {
             if (gameState.flags[index].status === "selected") {
-                dispatch({
-                    type: "choose-flag",
-                    flag: {
-                        [index]: {
-                            country: country.name,
-                            status: "unselected",
-                        },
-                        index,
-                    },
-                });
+                dispatcher(
+                    dispatch,
+                    "choose-flag",
+                    "unselected",
+                    index,
+                    country.name,
+                    "flag"
+                );
             }
         });
     }

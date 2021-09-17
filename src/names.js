@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 
+import { dispatcher } from "./utility";
 const Names = (props) => {
     const { countryInfo, dispatch, gameState } = props;
 
@@ -8,16 +9,14 @@ const Names = (props) => {
     function stateResetter() {
         countryInfo.map((country, index) => {
             if (gameState.countries[index].status === "selected") {
-                dispatch({
-                    type: "choose-country",
-                    country: {
-                        [index]: {
-                            country: country.name,
-                            status: "unselected",
-                        },
-                        index,
-                    },
-                });
+                dispatcher(
+                    dispatch,
+                    "choose-country",
+                    "unselected",
+                    index,
+                    country.name,
+                    "country"
+                );
             }
         });
     }
