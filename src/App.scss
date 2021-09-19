@@ -10,6 +10,7 @@
     border: 1px solid grey;
     padding: 10px;
     border-radius: 10px;
+    height: fit-content;
 }
 
 h1 {
@@ -28,6 +29,7 @@ h1 {
     flex-flow: wrap;
     width: 400px;
     margin: 0 auto;
+    height: 150px;
 }
 
 .flag-container {

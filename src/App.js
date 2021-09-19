@@ -4,7 +4,7 @@ import React, { useState, useEffect, useReducer, useRef } from "react";
 
 import Names from "./names";
 import Flags from "./flags";
-import "./App.css";
+import "./App.scss";
 
 import { highlightSelection } from "./utility";
 
