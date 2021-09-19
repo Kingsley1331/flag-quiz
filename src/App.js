@@ -24,7 +24,7 @@ function reducer(state, action) {
                 },
             };
 
-        case "choose-country":
+        case "choose-name":
             return {
                 ...state,
                 countries: {

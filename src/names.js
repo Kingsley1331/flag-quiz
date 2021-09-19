@@ -1,56 +1,47 @@
 import React, { useEffect } from "react";
 
-import { dispatcher } from "./utility";
+import { dispatcher, stateResetter } from "./utility";
 const Names = (props) => {
     const { countryInfo, dispatch, gameState } = props;
 
     useEffect(() => {}, [gameState]);
 
-    function stateResetter() {
-        countryInfo.map((country, index) => {
-            if (gameState.countries[index].status === "selected") {
-                dispatcher(
-                    dispatch,
-                    "choose-country",
-                    "unselected",
-                    index,
-                    country.name,
-                    "country"
-                );
-            }
-        });
-    }
-
     return (
         <>
             {countryInfo.map((country, index) => {
                 return (
-                    <p
+                    <button
                         className="country"
-                        onClick={(event) => {
-                            stateResetter();
-                            dispatch({
-                                type: "choose-country",
-                                country: {
-                                    [index]: {
-                                        country: country.name,
-                                        status:
-                                            gameState.countries[index]
-                                                .status === "selected" ||
-                                            gameState.countries[index]
-                                                .status === "paired"
-                                                ? "unselected"
-                                                : "selected",
-                                    },
-                                    index,
-                                },
-                            });
+                        onClick={() => {
+                            stateResetter(
+                                countryInfo,
+                                gameState,
+                                dispatch,
+                                "choose-name",
+                                "country"
+                            );
+
+                            let status =
+                                gameState.countries[index].status ===
+                                    "selected" ||
+                                gameState.countries[index].status === "paired"
+                                    ? "unselected"
+                                    : "selected";
+
+                            dispatcher(
+                                dispatch,
+                                "choose-name",
+                                status,
+                                index,
+                                country.name,
+                                "country"
+                            );
                         }}
                         key={country.name}
                         data-set={country.name}
                     >
                         {country.name}
-                    </p>
+                    </button>
                 );
             })}
         </>

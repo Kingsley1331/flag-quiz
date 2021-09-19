@@ -10,7 +10,7 @@ export function pairingsManager(gameState, index, countryName) {
     }
 }
 
-export function addToPairings(pair) {
+function addToPairings(pair) {
     pairings.push(pair);
     console.log("pairings", pairings);
 }
@@ -34,7 +34,7 @@ export function unPairName(gameState, index, dispatch, name) {
                 let nameIndex = pairs.name.index;
                 dispatcher(
                     dispatch,
-                    "choose-country",
+                    "choose-name",
                     "unselected",
                     nameIndex,
                     pairs.name.name,
@@ -86,6 +86,85 @@ export function dispatcher(dispatch, type, status, index, name, dataType) {
             index,
         },
     });
+}
+
+export function stateResetter(
+    countryInfo,
+    gameState,
+    dispatch,
+    type,
+    dataType
+) {
+    countryInfo.map((country, index) => {
+        let stateType = dataType === "flag" ? "flags" : "countries";
+        if (gameState[stateType][index].status === "selected") {
+            dispatcher(
+                dispatch,
+                type,
+                "unselected",
+                index,
+                country.name,
+                dataType
+            );
+        }
+    });
+}
+
+export function doWeHavePairing(gameState, flagIndex, dispatch) {
+    const countryNameDetails = isNameSelected(gameState);
+
+    if (isNameSelected(gameState).check && isFlagSelected(gameState)) {
+        dispatcher(
+            dispatch,
+            "choose-flag",
+            "paired",
+            flagIndex.index,
+            flagIndex.name,
+            "flag"
+        );
+
+        addToPairings({
+            name: {
+                name: countryNameDetails.name,
+                index: countryNameDetails.index,
+            },
+            flag: flagIndex.name,
+        });
+
+        dispatcher(
+            dispatch,
+            "choose-name",
+            "paired",
+            countryNameDetails.index,
+            countryNameDetails.name,
+            "country"
+        );
+    }
+}
+
+function isFlagSelected(gameState) {
+    let index;
+    for (index in gameState.flags) {
+        let status = gameState.flags[index].status;
+        if (status === "selected") {
+            return true;
+        }
+    }
+    return false;
+}
+
+function isNameSelected(gameState) {
+    let index;
+
+    for (index in gameState.countries) {
+        let status = gameState.countries[index].status;
+        let name = gameState.countries[index].country;
+        if (status === "selected") {
+            return { check: true, index, name };
+        }
+    }
+
+    return { check: false };
 }
 
 //move stateResetter to utilities
