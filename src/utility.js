@@ -1,4 +1,4 @@
-let pairings = [];
+export let pairings = [];
 
 export function pairingsManager(gameState, index, countryName) {
     if (gameState.flags[index].status === "paired") {
@@ -165,4 +165,25 @@ function isNameSelected(gameState) {
     }
 
     return { check: false };
+}
+
+function selectCountryFromApiData(arr) {
+    const arrLength = arr.length;
+
+    return arr[Math.floor(arrLength * Math.random())];
+}
+
+export function arrayOfSelectedCountries(apiData) {
+    const selectedCountriesArray = [];
+    let country;
+
+    while (selectedCountriesArray.length < 5) {
+        country = selectCountryFromApiData(apiData);
+
+        if (!selectedCountriesArray.includes(country)) {
+            selectedCountriesArray.push(country);
+        }
+    }
+
+    return selectedCountriesArray;
 }

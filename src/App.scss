@@ -29,7 +29,10 @@ h1 {
     flex-flow: wrap;
     width: 400px;
     margin: 0 auto;
-    height: 150px;
+    height: 200px;
+    background: gainsboro;
+    border-radius: 10px;
+    align-items: center;
 }
 
 .flag-container {
@@ -57,12 +60,9 @@ h1 {
 
 .chosenCountry {
     position: absolute;
-    /* display: none; */
+    width: 156px;
+    text-align: center;
 }
-
-/* .selected ~ .chosenCountry {
-    display: block;
-} */
 
 .hide {
     display: none;

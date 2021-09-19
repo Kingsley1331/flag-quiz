@@ -1,12 +1,15 @@
 //began on 04/10/2020
-//add coundown timer for each question
 import React, { useState, useEffect, useReducer, useRef } from "react";
 
 import Names from "./names";
 import Flags from "./flags";
 import "./App.scss";
 
-import { highlightSelection } from "./utility";
+import {
+    highlightSelection,
+    arrayOfSelectedCountries,
+    pairings,
+} from "./utility";
 
 function reducer(state, action) {
     const index = action.flag ? action.flag.index : action.name.index;
@@ -73,10 +76,10 @@ const App = () => {
             const response = await fetch(
                 "https://restcountries.eu/rest/v2/all"
             );
-            let data = await response.json();
-            data = data.slice(0, 5);
+            const data = await response.json();
+            let randomlySelectedCountries = arrayOfSelectedCountries(data);
 
-            setCountries(nameFlagData(data));
+            setCountries(nameFlagData(randomlySelectedCountries));
         }
         fetchData();
     }, []);
@@ -99,8 +102,8 @@ const App = () => {
         );
     }, [selections]);
 
-    console.log("countries", selections.names);
-    console.log("flags", selections.flags);
+    // console.log("countries", selections.names);
+    // console.log("flags", selections.flags);
 
     return (
         <>
@@ -121,6 +124,15 @@ const App = () => {
                     />
                 </div>
             </div>
+            <button
+                type="submit"
+                onClick={() => {
+                    console.log("test pairings", pairings);
+                }}
+            >
+                {" "}
+                Submit answers
+            </button>
         </>
     );
 };
