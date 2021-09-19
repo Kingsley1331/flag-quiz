@@ -38,7 +38,7 @@ export function unPairName(gameState, index, dispatch, name) {
                     "unselected",
                     nameIndex,
                     pairs.name.name,
-                    "country"
+                    "name"
                 );
             }
         });
@@ -96,7 +96,7 @@ export function stateResetter(
     dataType
 ) {
     countryInfo.map((country, index) => {
-        let stateType = dataType === "flag" ? "flags" : "countries";
+        let stateType = dataType === "flag" ? "flags" : "names";
         if (gameState[stateType][index].status === "selected") {
             dispatcher(
                 dispatch,
@@ -137,7 +137,7 @@ export function doWeHavePairing(gameState, flagIndex, dispatch) {
             "paired",
             countryNameDetails.index,
             countryNameDetails.name,
-            "country"
+            "name"
         );
     }
 }
@@ -156,9 +156,9 @@ function isFlagSelected(gameState) {
 function isNameSelected(gameState) {
     let index;
 
-    for (index in gameState.countries) {
-        let status = gameState.countries[index].status;
-        let name = gameState.countries[index].country;
+    for (index in gameState.names) {
+        let status = gameState.names[index].status;
+        let name = gameState.names[index].country;
         if (status === "selected") {
             return { check: true, index, name };
         }
@@ -166,7 +166,3 @@ function isNameSelected(gameState) {
 
     return { check: false };
 }
-
-//move stateResetter to utilities
-//update dispatch in both click functions
-//update from country to name

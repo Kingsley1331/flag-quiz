@@ -9,7 +9,7 @@ import "./App.css";
 import { highlightSelection } from "./utility";
 
 function reducer(state, action) {
-    const index = action.flag ? action.flag.index : action.country.index;
+    const index = action.flag ? action.flag.index : action.name.index;
 
     switch (action.type) {
         case "choose-flag":
@@ -27,11 +27,11 @@ function reducer(state, action) {
         case "choose-name":
             return {
                 ...state,
-                countries: {
-                    ...state.countries,
+                names: {
+                    ...state.names,
                     [index]: {
-                        country: action.country[index].country,
-                        status: action.country[index].status,
+                        country: action.name[index].country,
+                        status: action.name[index].status,
                     },
                 },
             };
@@ -50,7 +50,7 @@ function nameFlagData(countryData) {
 
 const App = () => {
     const [selections, dispatch] = useReducer(reducer, {
-        countries: {
+        names: {
             0: { country: "", status: "unselected" },
             1: { country: "", status: "unselected" },
             2: { country: "", status: "unselected" },
@@ -93,13 +93,13 @@ const App = () => {
         highlightSelection(
             containerRef,
             selections,
-            "countries",
+            "names",
             "country",
             "hide"
         );
     }, [selections]);
 
-    console.log("countries", selections.countries);
+    console.log("countries", selections.names);
     console.log("flags", selections.flags);
 
     return (

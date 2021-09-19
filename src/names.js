@@ -18,13 +18,12 @@ const Names = (props) => {
                                 gameState,
                                 dispatch,
                                 "choose-name",
-                                "country"
+                                "name"
                             );
 
                             let status =
-                                gameState.countries[index].status ===
-                                    "selected" ||
-                                gameState.countries[index].status === "paired"
+                                gameState.names[index].status === "selected" ||
+                                gameState.names[index].status === "paired"
                                     ? "unselected"
                                     : "selected";
 
@@ -34,7 +33,7 @@ const Names = (props) => {
                                 status,
                                 index,
                                 country.name,
-                                "country"
+                                "name"
                             );
                         }}
                         key={country.name}
