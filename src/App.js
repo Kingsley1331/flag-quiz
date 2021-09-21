@@ -74,7 +74,7 @@ const App = () => {
 
     const [questionNumber, setQuestionNumber] = useState(1);
 
-    const [timer, setTimer] = useState(0);
+    let [timer, setTimer] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
@@ -108,7 +108,16 @@ const App = () => {
     }, [selections]);
 
     useEffect(() => {
-        countDownTimer();
+        const countDownTimer = setInterval(() => {
+            setTimer((timer) => {
+                if (timer < 10) {
+                    return (timer = timer + 1);
+                } else {
+                    clearInterval(countDownTimer);
+                    return (timer = timer + 1);
+                }
+            });
+        }, 1000);
     }, []);
 
     // console.log("countries", selections.names);
@@ -151,15 +160,19 @@ const App = () => {
     };
 
     // const countDownTimer = () => {
-    function countDownTimer() {
-        setInterval(() => {
-            // timer++;
-            debugger;
-            setTimer(timer + 1);
-            console.log(timer);
-        }, 1000);
-    }
+    // function countDownTimer() {
+    // const countDownTimer = setInterval(() => {
+    //     setTimer((timer) => {
+    //         // console.log(timer);
+    //         return (timer = timer + 1);
+    //     });
+    //     // console.log(timer);
+    // }, 1000);
 
+    // if (timer > 10) {
+    //     clearInterval(countDownTimer)
+    // }
+    console.log(timer);
     return (
         <>
             <h1 className="App-header">Flag Quiz</h1>
