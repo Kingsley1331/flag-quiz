@@ -9,6 +9,7 @@ import {
     highlightSelection,
     arrayOfSelectedCountries,
     pairings,
+    stateResetter,
 } from "./utility";
 
 function reducer(state, action) {
@@ -71,6 +72,10 @@ const App = () => {
 
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
 
+    const [questionNumber, setQuestionNumber] = useState(1);
+
+    const [timer, setTimer] = useState(0);
+
     useEffect(() => {
         async function fetchData() {
             const response = await fetch(
@@ -82,7 +87,7 @@ const App = () => {
             setCountries(nameFlagData(randomlySelectedCountries));
         }
         fetchData();
-    }, []);
+    }, [questionNumber]);
 
     const containerRef = useRef();
     useEffect(() => {
@@ -102,8 +107,58 @@ const App = () => {
         );
     }, [selections]);
 
+    useEffect(() => {
+        countDownTimer();
+    }, []);
+
     // console.log("countries", selections.names);
     // console.log("flags", selections.flags);
+
+    let totalPoints = 0;
+    const addPoints = () => {
+        // console.log("test pairings", pairings);
+        let points = 0;
+
+        pairings.forEach((pair) => {
+            if (pair.flag === pair.name.name) {
+                points++;
+            }
+            return points;
+        });
+
+        totalPoints = +points;
+        console.log("sumOfPoints", totalPoints);
+
+        if (questionNumber < 10) {
+            setQuestionNumber(questionNumber + 1);
+        }
+
+        stateResetter(
+            countriesFromApi,
+            selections,
+            dispatch,
+            "choose-name",
+            "name"
+        );
+
+        stateResetter(
+            countriesFromApi,
+            selections,
+            dispatch,
+            "choose-flag",
+            "flag"
+        );
+    };
+
+    // const countDownTimer = () => {
+    function countDownTimer() {
+        setInterval(() => {
+            // timer++;
+            debugger;
+            setTimer(timer + 1);
+            console.log(timer);
+        }, 1000);
+    }
 
     return (
         <>
@@ -123,16 +178,12 @@ const App = () => {
                         gameState={selections}
                     />
                 </div>
+                <button type="submit" onClick={addPoints}>
+                    Submit answers
+                </button>
             </div>
-            <button
-                type="submit"
-                onClick={() => {
-                    console.log("test pairings", pairings);
-                }}
-            >
-                {" "}
-                Submit answers
-            </button>
+            <p>{questionNumber}</p>
+            <p>{timer}</p>
         </>
     );
 };

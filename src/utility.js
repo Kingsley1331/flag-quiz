@@ -113,6 +113,8 @@ export function stateResetter(
 export function doWeHavePairing(gameState, flagIndex, dispatch) {
     const countryNameDetails = isNameSelected(gameState);
 
+    console.log("gameState", gameState);
+
     if (isNameSelected(gameState).check && isFlagSelected(gameState)) {
         dispatcher(
             dispatch,

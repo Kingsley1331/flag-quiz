@@ -7,7 +7,6 @@ import {
     dispatcher,
     stateResetter,
     doWeHavePairing,
-    pairings,
 } from "./utility";
 
 const Flags = (props) => {

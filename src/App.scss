@@ -27,9 +27,9 @@ h1 {
 .country-name-container {
     display: flex;
     flex-flow: wrap;
-    width: 400px;
+    width: 340px;
     margin: 0 auto;
-    height: 200px;
+    min-height: 200px;
     background: gainsboro;
     border-radius: 10px;
     align-items: center;
