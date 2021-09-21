@@ -10,6 +10,7 @@ import {
     arrayOfSelectedCountries,
     pairings,
     stateResetter,
+    totalStateResetter,
 } from "./utility";
 
 function reducer(state, action) {
@@ -73,8 +74,12 @@ const App = () => {
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
 
     const [questionNumber, setQuestionNumber] = useState(1);
+    const [totalPoints, setTotalPoints] = useState(0);
+
+    const [clearTimer, setclearTimer] = useState(false);
 
     let [timer, setTimer] = useState(0);
+    let countDown = 30;
 
     useEffect(() => {
         async function fetchData() {
@@ -110,7 +115,7 @@ const App = () => {
     useEffect(() => {
         const countDownTimer = setInterval(() => {
             setTimer((timer) => {
-                if (timer < 10) {
+                if (timer < countDown - 1) {
                     return (timer = timer + 1);
                 } else {
                     clearInterval(countDownTimer);
@@ -118,12 +123,15 @@ const App = () => {
                 }
             });
         }, 1000);
+
+        if (clearTimer) {
+            clearInterval(countDownTimer);
+        }
     }, []);
 
     // console.log("countries", selections.names);
     // console.log("flags", selections.flags);
 
-    let totalPoints = 0;
     const addPoints = () => {
         // console.log("test pairings", pairings);
         let points = 0;
@@ -135,44 +143,18 @@ const App = () => {
             return points;
         });
 
-        totalPoints = +points;
-        console.log("sumOfPoints", totalPoints);
+        setTotalPoints(points);
 
         if (questionNumber < 10) {
             setQuestionNumber(questionNumber + 1);
         }
 
-        stateResetter(
-            countriesFromApi,
-            selections,
-            dispatch,
-            "choose-name",
-            "name"
-        );
+        setclearTimer(true);
 
-        stateResetter(
-            countriesFromApi,
-            selections,
-            dispatch,
-            "choose-flag",
-            "flag"
-        );
+        totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
+        totalStateResetter(countriesFromApi, dispatch, "choose-flag", "flag");
     };
 
-    // const countDownTimer = () => {
-    // function countDownTimer() {
-    // const countDownTimer = setInterval(() => {
-    //     setTimer((timer) => {
-    //         // console.log(timer);
-    //         return (timer = timer + 1);
-    //     });
-    //     // console.log(timer);
-    // }, 1000);
-
-    // if (timer > 10) {
-    //     clearInterval(countDownTimer)
-    // }
-    console.log(timer);
     return (
         <>
             <h1 className="App-header">Flag Quiz</h1>
@@ -196,7 +178,8 @@ const App = () => {
                 </button>
             </div>
             <p>{questionNumber}</p>
-            <p>{timer}</p>
+            <p>{countDown - timer}</p>
+            <p>Total point:{totalPoints} </p>
         </>
     );
 };

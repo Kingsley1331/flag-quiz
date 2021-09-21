@@ -110,6 +110,12 @@ export function stateResetter(
     });
 }
 
+export function totalStateResetter(countryInfo, dispatch, type, dataType) {
+    countryInfo.forEach((country, index) => {
+        dispatcher(dispatch, type, "unselected", index, "", dataType);
+    });
+}
+
 export function doWeHavePairing(gameState, flagIndex, dispatch) {
     const countryNameDetails = isNameSelected(gameState);
 
