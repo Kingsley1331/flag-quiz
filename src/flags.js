@@ -12,6 +12,8 @@ import {
 const Flags = (props) => {
     let { countryInfo, dispatch, gameState } = props;
 
+    console.log("countryInfo", countryInfo);
+
     const [flagIndex, setFlagIndex] = useState(null);
 
     useEffect(() => {
@@ -21,6 +23,7 @@ const Flags = (props) => {
     return (
         <>
             {countryInfo.map((country, index) => {
+                // console.log("country", country);
                 return (
                     <div key={country.name}>
                         <button

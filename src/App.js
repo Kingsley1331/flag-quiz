@@ -1,5 +1,11 @@
 //began on 04/10/2020
-import React, { useState, useEffect, useReducer, useRef } from "react";
+import React, {
+    useState,
+    useEffect,
+    useReducer,
+    useRef,
+    useCallback,
+} from "react";
 
 import Names from "./names";
 import Flags from "./flags";
@@ -9,9 +15,32 @@ import {
     highlightSelection,
     arrayOfSelectedCountries,
     pairings,
-    stateResetter,
     totalStateResetter,
 } from "./utility";
+
+const Timer = () => {
+    const timeLimit = 30;
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        const countDownTimer = setInterval(() => {
+            setCount((currentCount) => {
+                if (currentCount < timeLimit - 1) {
+                    return currentCount + 1;
+                } else {
+                    clearInterval(countDownTimer);
+                    return currentCount + 1;
+                }
+            });
+        }, 1000);
+
+        return () => {
+            clearInterval(countDownTimer);
+        };
+    }, []);
+
+    return <div>Timer:{timeLimit - count}</div>;
+};
 
 function reducer(state, action) {
     const index = action.flag ? action.flag.index : action.name.index;
@@ -47,7 +76,7 @@ function reducer(state, action) {
 
 function nameFlagData(countryData) {
     const filteredData = countryData.map((country) => {
-        return { name: country.name, flag: country.flag };
+        return { name: country.name, flag: country.flags[0] };
     });
 
     return filteredData;
@@ -76,17 +105,14 @@ const App = () => {
     const [questionNumber, setQuestionNumber] = useState(1);
     const [totalPoints, setTotalPoints] = useState(0);
 
-    const [clearTimer, setclearTimer] = useState(false);
-
-    let [timer, setTimer] = useState(0);
-    let countDown = 30;
+    // let [timer, setTimer] = useState(0);
+    // let [countDown, setCountDown] = useState(30);
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(
-                "https://restcountries.eu/rest/v2/all"
-            );
+            const response = await fetch("https://restcountries.com/v2/all");
             const data = await response.json();
+
             let randomlySelectedCountries = arrayOfSelectedCountries(data);
 
             setCountries(nameFlagData(randomlySelectedCountries));
@@ -112,23 +138,6 @@ const App = () => {
         );
     }, [selections]);
 
-    useEffect(() => {
-        const countDownTimer = setInterval(() => {
-            setTimer((timer) => {
-                if (timer < countDown - 1) {
-                    return (timer = timer + 1);
-                } else {
-                    clearInterval(countDownTimer);
-                    return (timer = timer + 1);
-                }
-            });
-        }, 1000);
-
-        if (clearTimer) {
-            clearInterval(countDownTimer);
-        }
-    }, []);
-
     // console.log("countries", selections.names);
     // console.log("flags", selections.flags);
 
@@ -149,11 +158,14 @@ const App = () => {
             setQuestionNumber(questionNumber + 1);
         }
 
-        setclearTimer(true);
-
         totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
         totalStateResetter(countriesFromApi, dispatch, "choose-flag", "flag");
+
+        updateIndex();
     };
+
+    const [index, setIndex] = useState(0);
+    const updateIndex = useCallback(() => setIndex(index + 1), [index]);
 
     return (
         <>
@@ -178,8 +190,9 @@ const App = () => {
                 </button>
             </div>
             <p>{questionNumber}</p>
-            <p>{countDown - timer}</p>
+
             <p>Total point:{totalPoints} </p>
+            <Timer key={index} />
         </>
     );
 };
