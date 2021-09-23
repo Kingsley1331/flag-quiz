@@ -18,7 +18,7 @@ import {
     totalStateResetter,
 } from "./utility";
 
-const Timer = () => {
+const Timer = (props) => {
     const timeLimit = 30;
     const [count, setCount] = useState(0);
 
@@ -28,7 +28,13 @@ const Timer = () => {
                 if (currentCount < timeLimit - 1) {
                     return currentCount + 1;
                 } else {
+                    if (props.questionNumber < 10) {
+                        // setTimeout(props.addPoints, 3000);
+                        props.addPoints();
+                    }
+
                     clearInterval(countDownTimer);
+
                     return currentCount + 1;
                 }
             });
@@ -105,6 +111,9 @@ const App = () => {
     const [questionNumber, setQuestionNumber] = useState(1);
     const [totalPoints, setTotalPoints] = useState(0);
 
+    const [index, setIndex] = useState(0);
+    const updateIndex = useCallback(() => setIndex(index + 1), [index]);
+
     // let [timer, setTimer] = useState(0);
     // let [countDown, setCountDown] = useState(30);
 
@@ -116,6 +125,8 @@ const App = () => {
             let randomlySelectedCountries = arrayOfSelectedCountries(data);
 
             setCountries(nameFlagData(randomlySelectedCountries));
+
+            updateIndex();
         }
         fetchData();
     }, [questionNumber]);
@@ -142,7 +153,6 @@ const App = () => {
     // console.log("flags", selections.flags);
 
     const addPoints = () => {
-        // console.log("test pairings", pairings);
         let points = 0;
 
         pairings.forEach((pair) => {
@@ -154,18 +164,19 @@ const App = () => {
 
         setTotalPoints(points);
 
+        totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
+        totalStateResetter(countriesFromApi, dispatch, "choose-flag", "flag");
+
         if (questionNumber < 10) {
             setQuestionNumber(questionNumber + 1);
         }
 
-        totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
-        totalStateResetter(countriesFromApi, dispatch, "choose-flag", "flag");
+        // if (loadQuiz) {
+        // updateIndex();
 
-        updateIndex();
+        // setLoadQuiz(false);
+        // }
     };
-
-    const [index, setIndex] = useState(0);
-    const updateIndex = useCallback(() => setIndex(index + 1), [index]);
 
     return (
         <>
@@ -192,9 +203,22 @@ const App = () => {
             <p>{questionNumber}</p>
 
             <p>Total point:{totalPoints} </p>
-            <Timer key={index} />
+            <Timer
+                key={index}
+                addPoints={addPoints}
+                questionNumber={questionNumber}
+            />
         </>
     );
 };
 
 export default App;
+
+/*
+- split some of the functionality currently in the addPoints function i.e a next question button
+ that is separate from the rest of the functionalities.
+
+ -should next question automatically render or should the use click next button first?
+
+ - change order of names or flags
+ */

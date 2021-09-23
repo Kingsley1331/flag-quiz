@@ -47,7 +47,9 @@ h1 {
     align-items: center;
     border-radius: 10px;
     cursor: pointer;
-    height: 80%;
+    height: 100px;
+    width: 100px;
+    background-color: rgb(235, 227, 227);
 }
 
 .flag {
@@ -60,8 +62,9 @@ h1 {
 
 .chosenCountry {
     position: absolute;
-    width: 156px;
+    width: 100px;
     text-align: center;
+    margin: 0 10px;
 }
 
 .hide {

@@ -12,7 +12,7 @@ import {
 const Flags = (props) => {
     let { countryInfo, dispatch, gameState } = props;
 
-    console.log("countryInfo", countryInfo);
+    //console.log("countryInfo", countryInfo);
 
     const [flagIndex, setFlagIndex] = useState(null);
 
@@ -27,6 +27,12 @@ const Flags = (props) => {
                 return (
                     <div key={country.name}>
                         <button
+                            style={{
+                                backgroundImage: `url(${country.flag})`,
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "90%",
+                                backgroundPosition: "center",
+                            }}
                             className="flag-div"
                             onClick={() => {
                                 stateResetter(
@@ -71,11 +77,11 @@ const Flags = (props) => {
                             }}
                             data-set={country.name}
                         >
-                            <img
+                            {/* <img
                                 className="flag"
                                 alt="flag-pic"
                                 src={country.flag}
-                            />
+                            /> */}
                         </button>
                         <div className="chosenCountry">
                             {addPairedName(country.name)}

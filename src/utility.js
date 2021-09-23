@@ -6,13 +6,13 @@ export function pairingsManager(gameState, index, countryName) {
             return countryName !== pairs.flag;
         });
 
-        console.log("pairings", pairings);
+        // console.log("pairings", pairings);
     }
 }
 
 function addToPairings(pair) {
     pairings.push(pair);
-    console.log("pairings", pairings);
+    // console.log("pairings", pairings);
 }
 
 export function addPairedName(name) {
@@ -119,7 +119,7 @@ export function totalStateResetter(countryInfo, dispatch, type, dataType) {
 export function doWeHavePairing(gameState, flagIndex, dispatch) {
     const countryNameDetails = isNameSelected(gameState);
 
-    console.log("gameState", gameState);
+    // console.log("gameState", gameState);
 
     if (isNameSelected(gameState).check && isFlagSelected(gameState)) {
         dispatcher(
