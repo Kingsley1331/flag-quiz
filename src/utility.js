@@ -6,13 +6,13 @@ export function pairingsManager(gameState, index, countryName) {
             return countryName !== pairs.flag;
         });
 
-        // console.log("pairings", pairings);
+        console.log("pairings", pairings);
     }
 }
 
 function addToPairings(pair) {
     pairings.push(pair);
-    // console.log("pairings", pairings);
+    console.log("pairings", pairings);
 }
 
 export function addPairedName(name) {
@@ -194,4 +194,16 @@ export function arrayOfSelectedCountries(apiData) {
     }
 
     return selectedCountriesArray;
+}
+
+export function arrayScrambler(arr) {
+    let scrambledArray = [];
+    for (let i = 0; i < arr.length; i++) {
+        let index;
+        index = Math.floor(Math.random() * arr.length);
+        scrambledArray.push(arr[index]);
+        arr.splice(index, 1);
+        i--;
+    }
+    return scrambledArray;
 }

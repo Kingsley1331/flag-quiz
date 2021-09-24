@@ -1,3 +1,5 @@
+$flagWidth: 100px;
+
 .flag {
     width: 100px;
     cursor: pointer;
@@ -40,15 +42,15 @@ h1 {
     margin-top: 100px;
 }
 
-.flag-div {
+.flag-button {
     border: 1px solid gray;
     margin: 10px;
     display: flex;
     align-items: center;
     border-radius: 10px;
     cursor: pointer;
-    height: 100px;
-    width: 100px;
+    height: $flagWidth;
+    width: $flagWidth;
     background-color: rgb(235, 227, 227);
 }
 
@@ -62,7 +64,7 @@ h1 {
 
 .chosenCountry {
     position: absolute;
-    width: 100px;
+    width: $flagWidth;
     text-align: center;
     margin: 0 10px;
 }

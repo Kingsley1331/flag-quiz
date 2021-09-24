@@ -16,11 +16,13 @@ import {
     arrayOfSelectedCountries,
     pairings,
     totalStateResetter,
+    arrayScrambler,
 } from "./utility";
 
 const Timer = (props) => {
     const timeLimit = 30;
     const [count, setCount] = useState(0);
+    // const [pauseTimer, setPauseTimer] = useState(false);
 
     useEffect(() => {
         const countDownTimer = setInterval(() => {
@@ -39,6 +41,11 @@ const Timer = (props) => {
                 }
             });
         }, 1000);
+
+        // setPauseTimer(props.pause);
+        // if (pauseTimer) {
+        //     clearInterval(countDownTimer);
+        // }
 
         return () => {
             clearInterval(countDownTimer);
@@ -114,8 +121,8 @@ const App = () => {
     const [index, setIndex] = useState(0);
     const updateIndex = useCallback(() => setIndex(index + 1), [index]);
 
-    // let [timer, setTimer] = useState(0);
-    // let [countDown, setCountDown] = useState(30);
+    const [pause, setPause] = useState(false);
+    // const pauseTimer = useCallback(() => setPause(!pause), [pause]);
 
     useEffect(() => {
         async function fetchData() {
@@ -154,7 +161,7 @@ const App = () => {
 
     const addPoints = () => {
         let points = 0;
-
+        console.log(pairings);
         pairings.forEach((pair) => {
             if (pair.flag === pair.name.name) {
                 points++;
@@ -162,20 +169,24 @@ const App = () => {
             return points;
         });
 
-        setTotalPoints(points);
+        setPause(true);
 
+        /** this line is responsible for an error(Cannot update a component (`App`) while rendering a different component (`Timer`))
+         *  needs to be fixed later ********/
+        setTotalPoints(points);
+        /****************************************************************************/
+        // pauseTimer();
+        // setPause(true);
+    };
+
+    const moveToNextQuestion = () => {
+        setPause(false);
         totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
         totalStateResetter(countriesFromApi, dispatch, "choose-flag", "flag");
 
         if (questionNumber < 10) {
             setQuestionNumber(questionNumber + 1);
         }
-
-        // if (loadQuiz) {
-        // updateIndex();
-
-        // setLoadQuiz(false);
-        // }
     };
 
     return (
@@ -199,15 +210,21 @@ const App = () => {
                 <button type="submit" onClick={addPoints}>
                     Submit answers
                 </button>
+                <button type="submit" onClick={moveToNextQuestion}>
+                    Next question
+                </button>
             </div>
             <p>{questionNumber}</p>
 
             <p>Total point:{totalPoints} </p>
-            <Timer
-                key={index}
-                addPoints={addPoints}
-                questionNumber={questionNumber}
-            />
+            {!pause && (
+                <Timer
+                    key={index}
+                    addPoints={addPoints}
+                    questionNumber={questionNumber}
+                    // pause={!pause}
+                />
+            )}
         </>
     );
 };

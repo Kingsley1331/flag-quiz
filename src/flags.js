@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createModuleResolutionCache } from "typescript";
 
 import {
     pairingsManager,
@@ -7,12 +8,14 @@ import {
     dispatcher,
     stateResetter,
     doWeHavePairing,
+    arrayScrambler,
 } from "./utility";
+
+const order = arrayScrambler([1, 2, 3, 4, 5]);
+console.log(order);
 
 const Flags = (props) => {
     let { countryInfo, dispatch, gameState } = props;
-
-    //console.log("countryInfo", countryInfo);
 
     const [flagIndex, setFlagIndex] = useState(null);
 
@@ -25,7 +28,11 @@ const Flags = (props) => {
             {countryInfo.map((country, index) => {
                 // console.log("country", country);
                 return (
-                    <div key={country.name}>
+                    <div
+                        key={country.name}
+                        className="flag-div"
+                        style={{ order: order[index] }}
+                    >
                         <button
                             style={{
                                 backgroundImage: `url(${country.flag})`,
@@ -33,7 +40,7 @@ const Flags = (props) => {
                                 backgroundSize: "90%",
                                 backgroundPosition: "center",
                             }}
-                            className="flag-div"
+                            className="flag-button"
                             onClick={() => {
                                 stateResetter(
                                     countryInfo,
