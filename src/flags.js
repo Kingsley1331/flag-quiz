@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { createModuleResolutionCache } from "typescript";
 
 import {
     pairingsManager,
@@ -8,14 +7,12 @@ import {
     dispatcher,
     stateResetter,
     doWeHavePairing,
-    arrayScrambler,
 } from "./utility";
 
-const order = arrayScrambler([1, 2, 3, 4, 5]);
-console.log(order);
-
 const Flags = (props) => {
-    let { countryInfo, dispatch, gameState } = props;
+    let { countryInfo, dispatch, gameState, order, freezeCountries } = props;
+
+    // console.log(order);
 
     const [flagIndex, setFlagIndex] = useState(null);
 
@@ -23,14 +20,26 @@ const Flags = (props) => {
         doWeHavePairing(gameState, flagIndex, dispatch);
     }, [gameState]);
 
+    function highlightRightWrong(name) {
+        let resultClass;
+        if (freezeCountries) {
+            resultClass = addPairedName(name).includes(name)
+                ? "right"
+                : "wrong";
+        }
+
+        return resultClass;
+    }
+
     return (
         <>
             {countryInfo.map((country, index) => {
-                // console.log("country", country);
                 return (
                     <div
                         key={country.name}
-                        className="flag-div"
+                        className={`flag-div ${highlightRightWrong(
+                            country.name
+                        )}`}
                         style={{ order: order[index] }}
                     >
                         <button
@@ -40,6 +49,7 @@ const Flags = (props) => {
                                 backgroundSize: "90%",
                                 backgroundPosition: "center",
                             }}
+                            disabled={freezeCountries}
                             className="flag-button"
                             onClick={() => {
                                 stateResetter(

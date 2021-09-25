@@ -76,3 +76,19 @@ h1 {
 .paired {
     background-color: #66ccff;
 }
+
+.flag-button[disabled] {
+    opacity: 0.6;
+}
+
+button[disabled] {
+    cursor: not-allowed;
+}
+
+.right {
+    background-color: green;
+}
+
+.wrong {
+    background-color: red;
+}

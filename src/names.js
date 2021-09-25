@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { dispatcher, stateResetter } from "./utility";
 const Names = (props) => {
-    const { countryInfo, dispatch, gameState } = props;
+    const { countryInfo, dispatch, gameState, freezeCountries } = props;
 
     useEffect(() => {}, [gameState]);
 
@@ -12,6 +12,7 @@ const Names = (props) => {
                 return (
                     <button
                         className="country"
+                        disabled={freezeCountries}
                         onClick={() => {
                             stateResetter(
                                 countryInfo,

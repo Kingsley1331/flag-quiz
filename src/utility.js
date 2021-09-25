@@ -46,7 +46,7 @@ export function unPairName(gameState, index, dispatch, name) {
 }
 
 function findNameIndex(flagName) {
-    pairings.map((pair) => {
+    pairings.forEach((pair) => {
         if (pair.flag === flagName) {
             return pair.name;
         }
@@ -63,7 +63,7 @@ export function highlightSelection(
     let countryArray = [
         ...containerRef.current.getElementsByClassName(elementClassName),
     ];
-    countryArray.map((flag, index) => {
+    countryArray.forEach((flag, index) => {
         if (selections[type][index].status === "selected") {
             flag.classList.add("selected");
         } else if (selections[type][index].status === "unselected") {
@@ -95,7 +95,7 @@ export function stateResetter(
     type,
     dataType
 ) {
-    countryInfo.map((country, index) => {
+    countryInfo.forEach((country, index) => {
         let stateType = dataType === "flag" ? "flags" : "names";
         if (gameState[stateType][index].status === "selected") {
             dispatcher(

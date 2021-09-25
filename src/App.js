@@ -31,7 +31,7 @@ const Timer = (props) => {
                     return currentCount + 1;
                 } else {
                     if (props.questionNumber < 10) {
-                        // setTimeout(props.addPoints, 3000);
+                        //runs when countdown runs to 0
                         props.addPoints();
                     }
 
@@ -122,7 +122,10 @@ const App = () => {
     const updateIndex = useCallback(() => setIndex(index + 1), [index]);
 
     const [pause, setPause] = useState(false);
-    // const pauseTimer = useCallback(() => setPause(!pause), [pause]);
+
+    const [order, setOrder] = useState(arrayScrambler([1, 2, 3, 4, 5]));
+
+    const [freezeCountries, setFreezeCountries] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -161,7 +164,7 @@ const App = () => {
 
     const addPoints = () => {
         let points = 0;
-        console.log(pairings);
+        // console.log(pairings);
         pairings.forEach((pair) => {
             if (pair.flag === pair.name.name) {
                 points++;
@@ -170,23 +173,25 @@ const App = () => {
         });
 
         setPause(true);
+        setFreezeCountries(true);
 
         /** this line is responsible for an error(Cannot update a component (`App`) while rendering a different component (`Timer`))
          *  needs to be fixed later ********/
         setTotalPoints(points);
         /****************************************************************************/
-        // pauseTimer();
-        // setPause(true);
     };
 
     const moveToNextQuestion = () => {
         setPause(false);
+        setFreezeCountries(false);
         totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
         totalStateResetter(countriesFromApi, dispatch, "choose-flag", "flag");
 
         if (questionNumber < 10) {
             setQuestionNumber(questionNumber + 1);
         }
+
+        setOrder(arrayScrambler([1, 2, 3, 4, 5]));
     };
 
     return (
@@ -198,6 +203,7 @@ const App = () => {
                         dispatch={dispatch}
                         countryInfo={countriesFromApi}
                         gameState={selections}
+                        freezeCountries={freezeCountries}
                     />
                 </div>
                 <div className="flag-container">
@@ -205,6 +211,8 @@ const App = () => {
                         dispatch={dispatch}
                         countryInfo={countriesFromApi}
                         gameState={selections}
+                        order={order}
+                        freezeCountries={freezeCountries}
                     />
                 </div>
                 <button type="submit" onClick={addPoints}>
@@ -222,7 +230,6 @@ const App = () => {
                     key={index}
                     addPoints={addPoints}
                     questionNumber={questionNumber}
-                    // pause={!pause}
                 />
             )}
         </>
@@ -230,12 +237,3 @@ const App = () => {
 };
 
 export default App;
-
-/*
-- split some of the functionality currently in the addPoints function i.e a next question button
- that is separate from the rest of the functionalities.
-
- -should next question automatically render or should the use click next button first?
-
- - change order of names or flags
- */
