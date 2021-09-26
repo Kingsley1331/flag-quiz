@@ -10,7 +10,8 @@ import {
 } from "./utility";
 
 const Flags = (props) => {
-    let { countryInfo, dispatch, gameState, order, freezeCountries } = props;
+    let { countryInfo, dispatch, gameState, flagOrder, freezeCountries } =
+        props;
 
     // console.log(order);
 
@@ -40,7 +41,7 @@ const Flags = (props) => {
                         className={`flag-div ${highlightRightWrong(
                             country.name
                         )}`}
-                        style={{ order: order[index] }}
+                        style={{ order: flagOrder[index] }}
                     >
                         <button
                             style={{

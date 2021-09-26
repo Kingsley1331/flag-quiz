@@ -16,13 +16,15 @@ function addToPairings(pair) {
 }
 
 export function addPairedName(name) {
+    //looks through the pairings array to find paired flags so that the country name that they were paired
+    //with can be inserted as the chosen country
     const pairedName = pairings.map((pair) => {
         if (name === pair.flag) {
             return pair.name.name;
         }
         return "";
     });
-
+    console.log("pairedName", pairedName);
     return pairedName;
 }
 

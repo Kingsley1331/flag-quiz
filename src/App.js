@@ -19,6 +19,8 @@ import {
     arrayScrambler,
 } from "./utility";
 
+const totalNumberOfQuestions = 10;
+
 const Timer = (props) => {
     const timeLimit = 30;
     const [count, setCount] = useState(0);
@@ -30,7 +32,7 @@ const Timer = (props) => {
                 if (currentCount < timeLimit - 1) {
                     return currentCount + 1;
                 } else {
-                    if (props.questionNumber < 10) {
+                    if (props.questionNumber <= totalNumberOfQuestions) {
                         //runs when countdown runs to 0
                         props.addPoints();
                     }
@@ -123,7 +125,7 @@ const App = () => {
 
     const [pause, setPause] = useState(false);
 
-    const [order, setOrder] = useState(arrayScrambler([1, 2, 3, 4, 5]));
+    const [flagOrder, setFlagOrder] = useState(arrayScrambler([1, 2, 3, 4, 5]));
 
     const [freezeCountries, setFreezeCountries] = useState(false);
 
@@ -191,7 +193,7 @@ const App = () => {
             setQuestionNumber(questionNumber + 1);
         }
 
-        setOrder(arrayScrambler([1, 2, 3, 4, 5]));
+        setFlagOrder(arrayScrambler([1, 2, 3, 4, 5]));
     };
 
     return (
@@ -211,16 +213,18 @@ const App = () => {
                         dispatch={dispatch}
                         countryInfo={countriesFromApi}
                         gameState={selections}
-                        order={order}
+                        flagOrder={flagOrder}
                         freezeCountries={freezeCountries}
                     />
                 </div>
                 <button type="submit" onClick={addPoints}>
                     Submit answers
                 </button>
-                <button type="submit" onClick={moveToNextQuestion}>
-                    Next question
-                </button>
+                {questionNumber < totalNumberOfQuestions && (
+                    <button type="submit" onClick={moveToNextQuestion}>
+                        Next question
+                    </button>
+                )}
             </div>
             <p>{questionNumber}</p>
 
