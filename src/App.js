@@ -91,7 +91,7 @@ function reducer(state, action) {
 
 function nameFlagData(countryData) {
     const filteredData = countryData.map((country) => {
-        return { name: country.name, flag: country.flags[0] };
+        return { name: country.name.common, flag: country.flags[0] };
     });
 
     return filteredData;
@@ -131,9 +131,9 @@ const App = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch("https://restcountries.com/v2/all");
+            const response = await fetch("https://restcountries.com/v3/all");
             const data = await response.json();
-
+            console.log(data);
             let randomlySelectedCountries = arrayOfSelectedCountries(data);
 
             setCountries(nameFlagData(randomlySelectedCountries));
@@ -179,11 +179,19 @@ const App = () => {
 
         /** this line is responsible for an error(Cannot update a component (`App`) while rendering a different component (`Timer`))
          *  needs to be fixed later ********/
-        setTotalPoints(points);
+
+        setTotalPoints((total) => {
+            return (total = total + points);
+        });
+
         /****************************************************************************/
+        //debugger;
+
+        //console.log("pairings", pairings);
     };
 
     const moveToNextQuestion = () => {
+        pairings.length = 0;
         setPause(false);
         setFreezeCountries(false);
         totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
