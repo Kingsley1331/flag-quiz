@@ -19,7 +19,7 @@ import {
     arrayScrambler,
 } from "./utility";
 
-const totalNumberOfQuestions = 10;
+const totalNumberOfQuestions = 3;
 
 const Timer = (props) => {
     const timeLimit = 30;
@@ -27,6 +27,7 @@ const Timer = (props) => {
     // const [pauseTimer, setPauseTimer] = useState(false);
 
     useEffect(() => {
+        let n;
         const countDownTimer = setInterval(() => {
             setCount((currentCount) => {
                 if (currentCount < timeLimit - 1) {
@@ -34,7 +35,14 @@ const Timer = (props) => {
                 } else {
                     if (props.questionNumber <= totalNumberOfQuestions) {
                         //runs when countdown runs to 0
-                        props.addPoints();
+
+                        //if statement used because code within setCount runs twice for every
+                        //interval however the addpoints function should only run once per interval
+                        if (n) {
+                            props.addPoints();
+                        }
+
+                        n = currentCount;
                     }
 
                     clearInterval(countDownTimer);
@@ -129,6 +137,8 @@ const App = () => {
 
     const [freezeCountries, setFreezeCountries] = useState(false);
 
+    const [canSubmitPoints, setCanSubmitPoints] = useState(true);
+
     useEffect(() => {
         async function fetchData() {
             const response = await fetch("https://restcountries.com/v3/all");
@@ -165,32 +175,33 @@ const App = () => {
     // console.log("flags", selections.flags);
 
     const addPoints = () => {
-        let points = 0;
-        // console.log(pairings);
-        pairings.forEach((pair) => {
-            if (pair.flag === pair.name.name) {
-                points++;
-            }
-            return points;
-        });
+        if (canSubmitPoints) {
+            let points = 0;
+            // console.log(pairings);
+            pairings.forEach((pair) => {
+                if (pair.flag === pair.name.name) {
+                    points++;
+                }
+                // return points;
+            });
 
-        setPause(true);
-        setFreezeCountries(true);
+            setPause(true);
+            setFreezeCountries(true);
 
-        /** this line is responsible for an error(Cannot update a component (`App`) while rendering a different component (`Timer`))
-         *  needs to be fixed later ********/
+            /** this line is responsible for the error(Cannot update a component (`App`) while rendering a different component (`Timer`))
+             *  needs to be fixed later ********/
 
-        setTotalPoints((total) => {
-            return (total = total + points);
-        });
+            setTotalPoints((total) => {
+                return (total = total + points);
+            });
 
-        /****************************************************************************/
-        //debugger;
-
-        //console.log("pairings", pairings);
+            /****************************************************************************/
+            setCanSubmitPoints(false);
+        }
     };
 
     const moveToNextQuestion = () => {
+        setCanSubmitPoints(true);
         pairings.length = 0;
         setPause(false);
         setFreezeCountries(false);
@@ -225,7 +236,11 @@ const App = () => {
                         freezeCountries={freezeCountries}
                     />
                 </div>
-                <button type="submit" onClick={addPoints}>
+                <button
+                    type="submit"
+                    onClick={addPoints}
+                    disabled={!canSubmitPoints}
+                >
                     Submit answers
                 </button>
                 {questionNumber < totalNumberOfQuestions && (
