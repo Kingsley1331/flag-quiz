@@ -22,7 +22,7 @@ import {
 const totalNumberOfQuestions = 3;
 
 const Timer = (props) => {
-    const timeLimit = 30;
+    const timeLimit = 300;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
 
@@ -243,7 +243,7 @@ const App = () => {
                 >
                     Submit answers
                 </button>
-                {questionNumber < totalNumberOfQuestions && (
+                {questionNumber < totalNumberOfQuestions && !canSubmitPoints && (
                     <button type="submit" onClick={moveToNextQuestion}>
                         Next question
                     </button>

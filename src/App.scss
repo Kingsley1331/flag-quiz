@@ -54,6 +54,16 @@ h1 {
     background-color: rgb(235, 227, 227);
 }
 
+.country,
+.flag-button {
+    &:hover:not(:disabled) {
+        box-shadow: 5px 10px 8px #888888;
+        transform: scale(1.075);
+    }
+    transition-property: transform;
+    transition-duration: 0.3s;
+}
+
 .flag {
     border: 1px solid grey;
 }
