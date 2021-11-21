@@ -227,6 +227,7 @@ const App = () => {
                         freezeCountries={freezeCountries}
                     />
                 </div>
+
                 <div className="flag-container">
                     <Flags
                         dispatch={dispatch}

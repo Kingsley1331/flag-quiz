@@ -9,11 +9,14 @@ import {
     doWeHavePairing,
 } from "./utility";
 
+import tick from "./assets/tick.svg";
+import cross from "./assets/cross.svg";
+
 const Flags = (props) => {
     let { countryInfo, dispatch, gameState, flagOrder, freezeCountries } =
         props;
 
-    // console.log(order);
+    console.log("freezeCountries", freezeCountries);
 
     const [flagIndex, setFlagIndex] = useState(null);
 
@@ -24,6 +27,7 @@ const Flags = (props) => {
     function highlightRightWrong(name) {
         let resultClass;
         if (freezeCountries) {
+            // setShowMark(freezeCountries);
             resultClass = addPairedName(name).includes(name)
                 ? "right"
                 : "wrong";
@@ -32,17 +36,44 @@ const Flags = (props) => {
         return resultClass;
     }
 
+    let removeBackgroundColor;
+
+    if (freezeCountries) {
+        removeBackgroundColor = "transparent";
+    }
+
     return (
+        //consider removing logic from the mark up
         <>
             {countryInfo.map((country, index) => {
                 return (
                     <div
                         key={country.name}
-                        className={`flag-div ${highlightRightWrong(
-                            country.name
-                        )}`}
-                        style={{ order: flagOrder[index] }}
+                        // className={`flag-div ${highlightRightWrong(
+                        //     country.name
+                        // )}`}
+                        className="flag-div"
+                        style={{
+                            order: flagOrder[index],
+                            backgroundColor: removeBackgroundColor,
+                        }}
                     >
+                        <img
+                            className="mark"
+                            src={
+                                addPairedName(country.name).includes(
+                                    country.name
+                                )
+                                    ? tick
+                                    : cross
+                            }
+                            alt="result icon"
+                            style={{
+                                display: `${
+                                    freezeCountries ? "block" : "none"
+                                }`,
+                            }}
+                        />
                         <button
                             style={{
                                 backgroundImage: `url(${country.flag})`,
@@ -94,13 +125,7 @@ const Flags = (props) => {
                                 );
                             }}
                             data-set={country.name}
-                        >
-                            {/* <img
-                                className="flag"
-                                alt="flag-pic"
-                                src={country.flag}
-                            /> */}
-                        </button>
+                        ></button>
                         <div className="chosenCountry">
                             {addPairedName(country.name)}
                         </div>

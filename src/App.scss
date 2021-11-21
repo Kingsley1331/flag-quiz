@@ -69,7 +69,7 @@ h1 {
 }
 
 .selected {
-    background-color: rgb(186, 245, 186);
+    background-color: greenyellow;
 }
 
 .chosenCountry {
@@ -95,14 +95,19 @@ button[disabled] {
     cursor: not-allowed;
 }
 
-.right {
-    background-color: green;
-}
+// .right {
+//     background-color: lightgreen;
+// }
 
-.wrong {
-    background-color: red;
-}
+// .wrong {
+//     background-color: pink;
+// }
 
 .flag-div {
     margin: 0 5px;
+}
+
+.mark {
+    display: none;
+    margin: 0 auto;
 }
