@@ -19,10 +19,11 @@ import {
     arrayScrambler,
 } from "./utility";
 
-const totalNumberOfQuestions = 3;
+const totalNumberOfQuestions = 10;
 
+//maybe move this to another file
 const Timer = (props) => {
-    const timeLimit = 300;
+    const timeLimit = 30;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
 
@@ -62,7 +63,7 @@ const Timer = (props) => {
         };
     }, []);
 
-    return <div>Timer:{timeLimit - count}</div>;
+    return <div className="timer">Timer:{timeLimit - count}</div>;
 };
 
 function reducer(state, action) {
@@ -216,7 +217,7 @@ const App = () => {
     };
 
     return (
-        <>
+        <div className="quiz-container">
             <h1 className="App-header">Flag Quiz</h1>
             <div ref={containerRef} className="main-container">
                 <div className="country-name-container">
@@ -237,22 +238,28 @@ const App = () => {
                         freezeCountries={freezeCountries}
                     />
                 </div>
-                <button
-                    type="submit"
-                    onClick={addPoints}
-                    disabled={!canSubmitPoints}
-                >
-                    Submit answers
-                </button>
+                {canSubmitPoints && (
+                    <button
+                        type="submit"
+                        onClick={addPoints}
+                        className="submit"
+                    >
+                        Submit answers
+                    </button>
+                )}
                 {questionNumber < totalNumberOfQuestions && !canSubmitPoints && (
-                    <button type="submit" onClick={moveToNextQuestion}>
+                    <button
+                        className="next"
+                        type="submit"
+                        onClick={moveToNextQuestion}
+                    >
                         Next question
                     </button>
                 )}
             </div>
-            <p>{questionNumber}</p>
+            <p className="question-number">{`Question - ${questionNumber}`}</p>
 
-            <p>Total point:{totalPoints} </p>
+            <div className="total-points">Total points: {totalPoints} </div>
             {!pause && (
                 <Timer
                     key={index}
@@ -260,7 +267,7 @@ const App = () => {
                     questionNumber={questionNumber}
                 />
             )}
-        </>
+        </div>
     );
 };
 

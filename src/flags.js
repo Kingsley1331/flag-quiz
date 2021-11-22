@@ -24,22 +24,18 @@ const Flags = (props) => {
         doWeHavePairing(gameState, flagIndex, dispatch);
     }, [gameState]);
 
-    function highlightRightWrong(name) {
-        let resultClass;
-        if (freezeCountries) {
-            // setShowMark(freezeCountries);
-            resultClass = addPairedName(name).includes(name)
-                ? "right"
-                : "wrong";
-        }
-
-        return resultClass;
-    }
-
     let removeBackgroundColor;
 
     if (freezeCountries) {
         removeBackgroundColor = "transparent";
+    }
+
+    function borderStyle(name) {
+        if (freezeCountries) {
+            return addPairedName(name).includes(name)
+                ? "4px solid green"
+                : "4px solid red";
+        }
     }
 
     return (
@@ -49,9 +45,6 @@ const Flags = (props) => {
                 return (
                     <div
                         key={country.name}
-                        // className={`flag-div ${highlightRightWrong(
-                        //     country.name
-                        // )}`}
                         className="flag-div"
                         style={{
                             order: flagOrder[index],
@@ -69,9 +62,7 @@ const Flags = (props) => {
                             }
                             alt="result icon"
                             style={{
-                                display: `${
-                                    freezeCountries ? "block" : "none"
-                                }`,
+                                display: freezeCountries ? "block" : "none",
                             }}
                         />
                         <button
@@ -80,6 +71,8 @@ const Flags = (props) => {
                                 backgroundRepeat: "no-repeat",
                                 backgroundSize: "90%",
                                 backgroundPosition: "center",
+
+                                border: borderStyle(country.name),
                             }}
                             disabled={freezeCountries}
                             className="flag-button"

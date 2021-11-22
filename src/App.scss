@@ -22,7 +22,6 @@ h1 {
 .country-name-container,
 .flag-container {
     display: flex;
-    width: 100vw;
     justify-content: center;
 }
 
@@ -95,14 +94,6 @@ button[disabled] {
     cursor: not-allowed;
 }
 
-// .right {
-//     background-color: lightgreen;
-// }
-
-// .wrong {
-//     background-color: pink;
-// }
-
 .flag-div {
     margin: 0 5px;
 }
@@ -110,4 +101,53 @@ button[disabled] {
 .mark {
     display: none;
     margin: 0 auto;
+}
+
+.quiz-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+.main-container {
+    grid-row: 3;
+    grid-column: 2;
+    width: 100%;
+}
+
+.timer {
+    text-align: right;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.App-header {
+    grid-column: 2;
+}
+
+.total-points {
+    grid-column: 3;
+}
+
+.total-points,
+.timer {
+    padding-top: 20px;
+    font-weight: bold;
+}
+
+.question-number {
+    color: rgb(100, 100, 100);
+    font-style: italic;
+    margin-bottom: 50px;
+    text-align: center;
+    font-weight: bold;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.submit,
+.next {
+    grid-column: 2;
+    margin: 0 auto;
+    display: block;
+    margin-top: 100px;
 }
