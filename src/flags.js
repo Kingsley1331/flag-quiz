@@ -16,8 +16,6 @@ const Flags = (props) => {
     let { countryInfo, dispatch, gameState, flagOrder, freezeCountries } =
         props;
 
-    console.log("freezeCountries", freezeCountries);
-
     const [flagIndex, setFlagIndex] = useState(null);
 
     useEffect(() => {
@@ -36,6 +34,24 @@ const Flags = (props) => {
                 ? "4px solid green"
                 : "4px solid red";
         }
+    }
+
+    function stateManager(index, name) {
+        stateResetter(countryInfo, gameState, dispatch, "choose-flag", "flag");
+
+        let status =
+            gameState.flags[index].status === "selected" ||
+            gameState.flags[index].status === "paired"
+                ? "unselected"
+                : "selected";
+
+        dispatcher(dispatch, "choose-flag", status, index, name, "flag");
+
+        setFlagIndex({ index, name });
+
+        unPairName(gameState, index, dispatch, name);
+
+        pairingsManager(gameState, index, name, "flag");
     }
 
     return (
@@ -76,47 +92,52 @@ const Flags = (props) => {
                             }}
                             disabled={freezeCountries}
                             className="flag-button"
-                            onClick={() => {
-                                stateResetter(
-                                    countryInfo,
-                                    gameState,
-                                    dispatch,
-                                    "choose-flag",
-                                    "flag"
-                                );
+                            onClick={
+                                () => {
+                                    stateManager(index, country.name);
+                                }
+                                //     () => {
+                                //     stateResetter(
+                                //         countryInfo,
+                                //         gameState,
+                                //         dispatch,
+                                //         "choose-flag",
+                                //         "flag"
+                                //     );
 
-                                let status =
-                                    gameState.flags[index].status ===
-                                        "selected" ||
-                                    gameState.flags[index].status === "paired"
-                                        ? "unselected"
-                                        : "selected";
+                                //     let status =
+                                //         gameState.flags[index].status ===
+                                //             "selected" ||
+                                //         gameState.flags[index].status === "paired"
+                                //             ? "unselected"
+                                //             : "selected";
 
-                                dispatcher(
-                                    dispatch,
-                                    "choose-flag",
-                                    status,
-                                    index,
-                                    country.name,
-                                    "flag"
-                                );
+                                //     dispatcher(
+                                //         dispatch,
+                                //         "choose-flag",
+                                //         status,
+                                //         index,
+                                //         country.name,
+                                //         "flag"
+                                //     );
 
-                                setFlagIndex({ index, name: country.name });
+                                //     setFlagIndex({ index, name: country.name });
 
-                                unPairName(
-                                    gameState,
-                                    index,
-                                    dispatch,
-                                    country.name
-                                );
+                                //     unPairName(
+                                //         gameState,
+                                //         index,
+                                //         dispatch,
+                                //         country.name
+                                //     );
 
-                                pairingsManager(
-                                    gameState,
-                                    index,
-                                    country.name,
-                                    "flag"
-                                );
-                            }}
+                                //     pairingsManager(
+                                //         gameState,
+                                //         index,
+                                //         country.name,
+                                //         "flag"
+                                //     );
+                                // }
+                            }
                             data-set={country.name}
                         ></button>
                         <div className="chosenCountry">

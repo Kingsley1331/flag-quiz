@@ -151,3 +151,57 @@ button[disabled] {
     display: block;
     margin-top: 100px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.back-to-top__action__ring-bg {
+    fill: none;   
+    stroke-width: 0.125rem;
+}
+
+.back-to-top__action__ring {
+
+    fill: none;
+    stroke-width: 0.125rem;
+    stroke-linecap: butt;
+    -webkit-animation: progress .3s ease-out forwards;
+    animation: progress .3s ease-out forwards;
+}
+
+.pageDiv {
+    height: 5000px;
+    border: 1px solid black;
+}
+
+
+.svgContainer {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+}
+
+.timer-svg{
+    position: relative;
+    top: 82px;
+    left:40px;
+    // transform: scale(-1,1);
+}

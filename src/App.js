@@ -19,11 +19,14 @@ import {
     arrayScrambler,
 } from "./utility";
 
+import RingSvg from "./RingSvg";
+
 const totalNumberOfQuestions = 10;
 
 //maybe move this to another file
 const Timer = (props) => {
-    const timeLimit = 30;
+    const multiplier = 10
+    const timeLimit = 30 * multiplier;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
 
@@ -51,7 +54,7 @@ const Timer = (props) => {
                     return currentCount + 1;
                 }
             });
-        }, 1000);
+        }, 100);
 
         // setPauseTimer(props.pause);
         // if (pauseTimer) {
@@ -63,7 +66,14 @@ const Timer = (props) => {
         };
     }, []);
 
-    return <div className="timer">Timer:{timeLimit - count}</div>;
+    const remainingTime = (timeLimit - count)
+
+    return (
+        <div className='svgContainer'>
+            <RingSvg count={remainingTime} timeLimit={timeLimit} />
+            <div className="timer">{(remainingTime / 10).toFixed(0)}</div>
+        </div>
+    )
 };
 
 function reducer(state, action) {
@@ -261,11 +271,14 @@ const App = () => {
 
             <div className="total-points">Total points: {totalPoints} </div>
             {!pause && (
+
+
                 <Timer
                     key={index}
                     addPoints={addPoints}
                     questionNumber={questionNumber}
                 />
+
             )}
         </div>
     );
