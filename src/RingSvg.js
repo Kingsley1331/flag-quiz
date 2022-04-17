@@ -1,6 +1,4 @@
-
 import React from "react";
-
 
 const RingSvg = (props) => {
 
@@ -18,11 +16,11 @@ const RingSvg = (props) => {
 
     return (
         <>
-            <svg viewBox="0 0 36 36" class="timer-svg" width="100" height="100">
+            <svg viewBox="0 0 36 36" className="timer-svg" width="100" height="100">
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                    class="back-to-top__action__ring-bg"></path>
+                    className="back-to-top__action__ring-bg"></path>
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                    stroke-dasharray={`${fraction}, 100`} class="back-to-top__action__ring" stroke={ringColour}></path>
+                    strokeDasharray={`${fraction}, 100`} className="back-to-top__action__ring" stroke={ringColour}></path>
 
             </svg>
         </>

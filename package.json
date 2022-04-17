@@ -12,12 +12,13 @@
     "node": "^17.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^4.0.3",
     "sass": "^1.41.1",
     "typescript": "^4.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
