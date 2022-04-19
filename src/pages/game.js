@@ -6,7 +6,7 @@ import React, {
     useCallback
 } from "react";
 
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import Names from "../names";
 import Flags from "../flags";
@@ -17,6 +17,8 @@ import {
     pairings,
     totalStateResetter,
     arrayScrambler,
+    createInitialObject,
+    arrayScramblerInput
 } from "../utility";
 
 import RingSvg from "../RingSvg";
@@ -119,25 +121,29 @@ function nameFlagData(countryData) {
 
 
 function Game() {
+    const { difficulty } = useParams()
+    let numberOfSelectedCountries
+
+    if (difficulty === "easy") {
+        numberOfSelectedCountries = 5
+    } else if (difficulty === "medium") {
+        numberOfSelectedCountries = 6
+    } else {
+        numberOfSelectedCountries = 7
+    }
+
+
+    const initialStateObject = createInitialObject(numberOfSelectedCountries)
+
     const [selections, dispatch] = useReducer(reducer, {
-        names: {
-            0: { country: "", status: "unselected" },
-            1: { country: "", status: "unselected" },
-            2: { country: "", status: "unselected" },
-            3: { country: "", status: "unselected" },
-            4: { country: "", status: "unselected" },
-        },
-        flags: {
-            0: { country: "", status: "unselected" },
-            1: { country: "", status: "unselected" },
-            2: { country: "", status: "unselected" },
-            3: { country: "", status: "unselected" },
-            4: { country: "", status: "unselected" },
-        },
+        names: initialStateObject,
+        flags: initialStateObject
     });
 
 
-     
+    console.log('arrayScramblerInput', arrayScramblerInput)
+
+
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
 
     const [questionNumber, setQuestionNumber] = useState(1);
@@ -148,20 +154,21 @@ function Game() {
 
     const [pause, setPause] = useState(false);
 
-    const [flagOrder, setFlagOrder] = useState(arrayScrambler([1, 2, 3, 4, 5]));
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    const [flagOrder, setFlagOrder] = useState(arrayScrambler(arrayScramblerInput(numberOfSelectedCountries)));
 
     const [freezeCountries, setFreezeCountries] = useState(false);
 
     const [canSubmitPoints, setCanSubmitPoints] = useState(true);
 
-    
+
 
     useEffect(() => {
         async function fetchData() {
             const response = await fetch("https://restcountries.com/v3/all");
             const data = await response.json();
             console.log(data);
-            let randomlySelectedCountries = arrayOfSelectedCountries(data);
+            let randomlySelectedCountries = arrayOfSelectedCountries(data,numberOfSelectedCountries);
 
             setCountries(nameFlagData(randomlySelectedCountries));
 
@@ -228,11 +235,11 @@ function Game() {
         if (questionNumber < 10) {
             setQuestionNumber(questionNumber + 1);
         }
-
-        setFlagOrder(arrayScrambler([1, 2, 3, 4, 5]));
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        setFlagOrder(arrayScrambler(arrayScramblerInput(numberOfSelectedCountries)));
     };
 
-    const {difficulty} = useParams()
+
     return (
         <div className="quiz-container">
             <h1 className="App-header">Flag Quiz</h1>
@@ -285,7 +292,6 @@ function Game() {
                     addPoints={addPoints}
                     questionNumber={questionNumber}
                 />
-
             )}
         </div>
     )

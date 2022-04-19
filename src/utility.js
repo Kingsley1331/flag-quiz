@@ -183,11 +183,11 @@ function selectCountryFromApiData(arr) {
     return arr[Math.floor(arrLength * Math.random())];
 }
 
-export function arrayOfSelectedCountries(apiData) {
+export function arrayOfSelectedCountries(apiData, numberOfSelectedCountries) {
     const selectedCountriesArray = [];
     let country;
 
-    while (selectedCountriesArray.length < 5) {
+    while (selectedCountriesArray.length < numberOfSelectedCountries) {
         country = selectCountryFromApiData(apiData);
 
         if (!selectedCountriesArray.includes(country)) {
@@ -208,4 +208,23 @@ export function arrayScrambler(arr) {
         i--;
     }
     return scrambledArray;
+}
+
+
+export function createInitialObject(numberOfSelectedCountries) {
+    const initialState = { country: "", status: "unselected" }
+    const stateObject = {}
+    for (let i = 0; i < numberOfSelectedCountries; i++) {
+        stateObject[i] = initialState;
+    }
+    return stateObject;
+}
+
+export function arrayScramblerInput(numberOfSelectedCountries) {
+    let inputArray = [];
+    for (let i = 1; i < numberOfSelectedCountries + 1; i++) {
+        inputArray.push(i)
+    }
+
+    return inputArray;
 }
