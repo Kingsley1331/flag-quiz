@@ -1,14 +1,16 @@
 import React from "react";
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 
 function Results() {
     const navigate = useNavigate()
-    setTimeout(()=>{navigate('/game')},2000)
+    const {level} = useParams()
+    // setTimeout(()=>{navigate('/game')},2000)
     return (
         <div>
+            {level}
             Results component
         </div>
     )
