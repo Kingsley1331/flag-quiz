@@ -6,7 +6,7 @@ import React, {
     useCallback
 } from "react";
 
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import Names from "../names";
 import Flags from "../flags";
@@ -23,12 +23,15 @@ import {
 
 import RingSvg from "../RingSvg";
 
-const totalNumberOfQuestions = 10;
+const totalNumberOfQuestions = 3;
 
 //maybe move this to another file
 const Timer = (props) => {
+
+    const { questionDuration, questionNumber } = props
+
     const multiplier = 10
-    const timeLimit = 30 * multiplier;
+    const timeLimit = questionDuration * multiplier;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
 
@@ -39,7 +42,7 @@ const Timer = (props) => {
                 if (currentCount < timeLimit - 1) {
                     return currentCount + 1;
                 } else {
-                    if (props.questionNumber <= totalNumberOfQuestions) {
+                    if (questionNumber <= totalNumberOfQuestions) {
                         //runs when countdown runs to 0
 
                         //if statement used because code within setCount runs twice for every
@@ -123,12 +126,16 @@ function nameFlagData(countryData) {
 function Game() {
     const { difficulty } = useParams()
     let numberOfSelectedCountries
+    let questionDuration
 
     if (difficulty === "easy") {
-        numberOfSelectedCountries = 5
+        numberOfSelectedCountries = 5;
+        questionDuration = 30;
     } else if (difficulty === "medium") {
-        numberOfSelectedCountries = 6
+        numberOfSelectedCountries = 6;
+        questionDuration = 25;
     } else {
+        questionDuration = 20;
         numberOfSelectedCountries = 7
     }
 
@@ -141,7 +148,7 @@ function Game() {
     });
 
 
-    console.log('arrayScramblerInput', arrayScramblerInput)
+
 
 
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
@@ -153,6 +160,8 @@ function Game() {
     const updateIndex = useCallback(() => setIndex(index + 1), [index]);
 
     const [pause, setPause] = useState(false);
+
+    const navigate = useNavigate()
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     const [flagOrder, setFlagOrder] = useState(arrayScrambler(arrayScramblerInput(numberOfSelectedCountries)));
@@ -168,7 +177,7 @@ function Game() {
             const response = await fetch("https://restcountries.com/v3/all");
             const data = await response.json();
             console.log(data);
-            let randomlySelectedCountries = arrayOfSelectedCountries(data,numberOfSelectedCountries);
+            let randomlySelectedCountries = arrayOfSelectedCountries(data, numberOfSelectedCountries);
 
             setCountries(nameFlagData(randomlySelectedCountries));
 
@@ -221,6 +230,9 @@ function Game() {
 
             /****************************************************************************/
             setCanSubmitPoints(false);
+            if (questionNumber === totalNumberOfQuestions) {
+                setTimeout(() => { navigate('/results') }, 2000)
+            }
         }
     };
 
@@ -232,7 +244,7 @@ function Game() {
         totalStateResetter(countriesFromApi, dispatch, "choose-name", "name");
         totalStateResetter(countriesFromApi, dispatch, "choose-flag", "flag");
 
-        if (questionNumber < 10) {
+        if (questionNumber < totalNumberOfQuestions) {
             setQuestionNumber(questionNumber + 1);
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -291,6 +303,7 @@ function Game() {
                     key={index}
                     addPoints={addPoints}
                     questionNumber={questionNumber}
+                    questionDuration={questionDuration}
                 />
             )}
         </div>
