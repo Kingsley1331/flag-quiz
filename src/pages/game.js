@@ -23,7 +23,7 @@ import {
 
 import RingSvg from "../RingSvg";
 
-const totalNumberOfQuestions = 3;
+const totalNumberOfQuestions = 10;
 
 //maybe move this to another file
 const Timer = (props) => {
