@@ -1,14 +1,17 @@
 import React from "react";
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 
 
 
 function Results() {
-    
+    const { difficulty } = useParams()
+    const totalPoints = localStorage[`${difficulty}TotalPoints`]
+
     return (
         <div>
-            Results component
+            {`You scored ${totalPoints} points`}
+            <Link to="/"> Play again</Link>
         </div>
     )
 }

@@ -23,7 +23,7 @@ import {
 
 import RingSvg from "../RingSvg";
 
-const totalNumberOfQuestions = 10;
+const totalNumberOfQuestions = 3;
 
 //maybe move this to another file
 const Timer = (props) => {
@@ -224,14 +224,20 @@ function Game() {
             /** this line is responsible for the error(Cannot update a component (`App`) while rendering a different component (`Timer`))
              *  needs to be fixed later ********/
 
+
             setTotalPoints((total) => {
-                return (total = total + points);
+                const cumalativePoints = total = total + points;
+                localStorage[`${difficulty}TotalPoints`] = cumalativePoints;
+                return cumalativePoints;
             });
 
             /****************************************************************************/
             setCanSubmitPoints(false);
             if (questionNumber === totalNumberOfQuestions) {
-                setTimeout(() => { navigate('/results') }, 2000)
+                setTimeout(() => {
+                    navigate(`/results/${difficulty}`);
+                    pairings.length = 0;
+                }, 2000)
             }
         }
     };
