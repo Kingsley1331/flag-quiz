@@ -171,12 +171,16 @@ function Game() {
     const [canSubmitPoints, setCanSubmitPoints] = useState(true);
 
 
+     const [loading, setLoading] = useState(true);
+
+    
 
     useEffect(() => {
         async function fetchData() {
             const response = await fetch("https://restcountries.com/v3/all");
             const data = await response.json();
             console.log(data);
+            setLoading(false);
             let randomlySelectedCountries = arrayOfSelectedCountries(data, numberOfSelectedCountries);
 
             setCountries(nameFlagData(randomlySelectedCountries));
@@ -188,20 +192,22 @@ function Game() {
 
     const containerRef = useRef();
     useEffect(() => {
-        highlightSelection(
-            containerRef,
-            selections,
-            "flags",
-            "flag-div",
-            "paired"
-        );
-        highlightSelection(
-            containerRef,
-            selections,
-            "names",
-            "country",
-            "hide"
-        );
+        if (!loading) {
+            highlightSelection(
+                containerRef,
+                selections,
+                "flags",
+                "flag-div",
+                "paired"
+            );
+            highlightSelection(
+                containerRef,
+                selections,
+                "names",
+                "country",
+                "hide"
+            );
+        }
     }, [selections]);
 
     // console.log("countries", selections.names);
@@ -255,8 +261,14 @@ function Game() {
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         setFlagOrder(arrayScrambler(arrayScramblerInput(numberOfSelectedCountries)));
+
+        setLoading(true);
     };
 
+
+    if (loading) {
+        return <p>loading</p>
+    }
 
     return (
         <div className="quiz-container">
