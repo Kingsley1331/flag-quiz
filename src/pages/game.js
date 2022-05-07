@@ -34,6 +34,7 @@ const Timer = (props) => {
     const timeLimit = questionDuration * multiplier;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
+    console.log('aaaaaaaaaaaa')
 
     useEffect(() => {
         let n;

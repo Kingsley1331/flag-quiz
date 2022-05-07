@@ -4,13 +4,14 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import "./App.scss";
+import "./level-selection.scss";
 
 import Home from './pages/home'
 import Game from './pages/game'
 import Results from './pages/results'
 
 
-// function initializeHighScores(){
+
 
 if( !localStorage['easyLevelHighScore'] ){
     localStorage['easyLevelHighScore'] = 0;
@@ -24,7 +25,7 @@ if( !localStorage['mediumLevelHighScore']){
 if(!localStorage['hardLevelHighScore']){
     localStorage['hardLevelHighScore'] = 0;
 }
-// }
+
 
 
 const App = () => {
