@@ -34,8 +34,7 @@ const Timer = (props) => {
     const timeLimit = questionDuration * multiplier;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
-    console.log('aaaaaaaaaaaa')
-
+   
     useEffect(() => {
         let n;
         const countDownTimer = setInterval(() => {
@@ -131,7 +130,7 @@ function Game() {
 
     if (difficulty === "easy") {
         numberOfSelectedCountries = 5;
-        questionDuration = 30;
+        questionDuration = 300;
     } else if (difficulty === "medium") {
         numberOfSelectedCountries = 6;
         questionDuration = 25;

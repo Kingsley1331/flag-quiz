@@ -1,46 +1,56 @@
+
+@mixin div-styled {
+    border: 1px grey solid;
+    border-radius: 5px;
+}
+
+$green: #49f649;
+$orange : #ffc966;
+$red : #ff6666;
+
 .level-selector {
+    @include div-styled;
     cursor: pointer;
     min-width: 250px;
-    min-height: 40px;
-    border: 1px solid grey;
+    min-height: 40px;   
     margin: 10px;
-    border-radius: 5px;
-   
 
     a {
         color: black;
         text-decoration: none;
     }
 
-    &.easy{ 
-        background-color: rgb(10, 207, 10);
+    &.easy {      
+        background-color: $green;
+        &:hover{
+            background-color:darken($green, 20%);
+        }
     }
 
-    &.medium{ 
-        background-color: orange;
+    &.medium {
+        background-color: $orange;
+        &:hover{
+            background-color:darken($orange, 20%);
+        }
     }
 
-    &.hard{ 
-        background-color: red;
+    &.hard {
+        background-color:  $red;
+        &:hover{
+            background-color:darken($red, 20%);
+        }
     }
 }
 
 .selection-container {
+    @include div-styled;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 500px;
     width: 500px;
-    margin: 0 auto;
-    border: 1px grey solid;
-    border-radius: 5px;
-    // background-color: rgb(217, 227, 248);
+    margin: 0 auto;   
     background-color: gainsboro;
+    
 }
-
-
-// turn this into a mixin
-
-// border: 1px grey solid;
-// border-radius: 5px;
