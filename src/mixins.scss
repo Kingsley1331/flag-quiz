@@ -1,0 +1,23 @@
+
+$green: #49f649;
+$orange : #ffc966;
+$red : #ff6666;
+
+@mixin div-style {
+    border-radius: 5px;
+    min-width: 250px;
+    min-height: 40px;
+    border: 1px grey solid;
+}
+
+
+@mixin button-style($bg-color) {
+    @include div-style;
+
+    background-color: $bg-color;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken($bg-color, 20%);
+    }
+}

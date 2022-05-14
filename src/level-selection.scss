@@ -1,18 +1,6 @@
-
-@mixin div-styled {
-    border: 1px grey solid;
-    border-radius: 5px;
-}
-
-$green: #49f649;
-$orange : #ffc966;
-$red : #ff6666;
+@import './mixins.scss';
 
 .level-selector {
-    @include div-styled;
-    cursor: pointer;
-    min-width: 250px;
-    min-height: 40px;   
     margin: 10px;
 
     a {
@@ -20,37 +8,28 @@ $red : #ff6666;
         text-decoration: none;
     }
 
-    &.easy {      
-        background-color: $green;
-        &:hover{
-            background-color:darken($green, 20%);
-        }
+    &.easy {
+        @include button-style($green);
     }
 
     &.medium {
-        background-color: $orange;
-        &:hover{
-            background-color:darken($orange, 20%);
-        }
+        @include button-style($orange);
     }
 
     &.hard {
-        background-color:  $red;
-        &:hover{
-            background-color:darken($red, 20%);
-        }
+        @include button-style($red);
     }
 }
 
 .selection-container {
-    @include div-styled;
+    @include div-style;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 500px;
     width: 500px;
-    margin: 0 auto;   
+    margin: 0 auto;
     background-color: gainsboro;
-    
+
 }

@@ -6,9 +6,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import "./App.scss";
 import "./level-selection.scss";
 
-import Home from './pages/home'
-import Game from './pages/game'
-import Results from './pages/results'
+import Home from './pages/home';
+import Game from './pages/game';
+import Results from './pages/results';
+import HighScores from './pages/highscores';
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/game/:difficulty" element={<Game />} />
                 <Route path="/results/:difficulty" element={<Results />} />
+                <Route path="/highscores" element={<HighScores />} />
             </Routes>
         </Router>
     )

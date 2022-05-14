@@ -130,7 +130,7 @@ function Game() {
 
     if (difficulty === "easy") {
         numberOfSelectedCountries = 5;
-        questionDuration = 300;
+        questionDuration = 30;
     } else if (difficulty === "medium") {
         numberOfSelectedCountries = 6;
         questionDuration = 25;
@@ -272,8 +272,7 @@ function Game() {
 
     return (
         <div className="quiz-container">
-            <h1 className="App-header">Flag Quiz</h1>
-            Level is {difficulty}
+            <h1 className="App-header">Flag Quiz</h1>         
             <div ref={containerRef} className="main-container">
                 <div className="country-name-container">
                     <Names
@@ -314,7 +313,8 @@ function Game() {
             </div>
             <p className="question-number">{`Question - ${questionNumber}`}</p>
 
-            <div className="total-points">Total points: {totalPoints} </div>
+          
+            <div className="total-points"><p>Level is: <span className="level">{difficulty} </span></p>   <p>Total points: {totalPoints} </p> </div>
 
             {!pause && (
                 <Timer

@@ -1,9 +1,15 @@
+@import './mixins.scss';
+
 $flagWidth: 100px;
 
 .flag {
     width: 100px;
     cursor: pointer;
     margin: 10px;
+}
+
+.level{
+    text-transform: capitalize;
 }
 
 .country {
@@ -34,14 +40,19 @@ h1 {
     background: gainsboro;
     border-radius: 10px;
     align-items: center;
+    border: 1px solid rgb(190, 186, 186);
 }
 
 .flag-container {
     position: relative;
-    margin-top: 100px;
+    margin-top: 50px;
+    width: 650px;
+    display: flex;
+    flex-flow: wrap;
 }
 
 .flag-button {
+    position: relative;
     border: 1px solid gray;
     margin: 10px;
     display: flex;
@@ -50,7 +61,8 @@ h1 {
     cursor: pointer;
     height: $flagWidth;
     width: $flagWidth;
-    background-color: rgb(235, 227, 227);
+    background-color: #d3cbcb;
+    z-index: 1000;
 }
 
 .country,
@@ -95,7 +107,7 @@ button[disabled] {
 }
 
 .flag-div {
-    margin: 0 5px;
+    margin: 15px 5px 25px;
 }
 
 .mark {
@@ -103,9 +115,13 @@ button[disabled] {
     margin: 0 auto;
 }
 
-.quiz-container {
+.quiz-container {  
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
+    border: 1px solid grey;
+    max-width: 1000px;
+    margin: 0px auto;
+    background-color: #eeebeb;
 }
 
 .main-container {
@@ -115,22 +131,23 @@ button[disabled] {
 }
 
 .timer {
-    text-align: right;
-    grid-column: 1;
-    grid-row: 1;
+    text-align: right;  
 }
 
 .App-header {
+    margin-top: 30px;
     grid-column: 2;
+    grid-row: 1;
 }
 
 .total-points {
     grid-column: 3;
+    
 }
 
 .total-points,
 .timer {
-    padding-top: 20px;
+    padding-top: 18px;
     font-weight: bold;
 }
 
@@ -146,14 +163,17 @@ button[disabled] {
 
 .submit,
 .next {
+    @include button-style($green);
     grid-column: 2;
-    margin: 0 auto;
+    margin: 50px auto;
     display: block;
-    margin-top: 100px;
+    // margin-top: 100px;
 }
 
 
-
+.selection-container a:last-child{
+    margin-top: 30px;
+}
 
 
 
@@ -194,9 +214,12 @@ button[disabled] {
 
 
 .svgContainer {
-    position: fixed;
-    top: 40px;
-    left: 40px;
+    position: relative;
+    top: 0;
+    right: 120px;
+    width: 100px;
+    grid-column: 2;
+    grid-row: 1;
 }
 
 .timer-svg{
