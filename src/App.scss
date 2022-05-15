@@ -120,8 +120,11 @@ button[disabled] {
     grid-template-columns: 1fr 2fr 1fr;
     border: 1px solid grey;
     max-width: 1000px;
-    margin: 0px auto;
+    margin: 10px auto 0;
     background-color: #eeebeb;
+    padding-bottom: 70px;
+    border-radius: 10px;
+
 }
 
 .main-container {

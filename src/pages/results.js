@@ -3,8 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 
 
 function Results() {
-    const { difficulty } = useParams()
-    const totalPoints = parseInt(localStorage[`${difficulty}TotalPoints`])
+    const { level } = useParams()
+    const totalPoints = parseInt(localStorage[`${level}TotalPoints`])
 
     const highScores = {
         easy: parseInt(localStorage['easyLevelHighScore']),
@@ -24,24 +24,21 @@ function Results() {
     }
 
 
-    if (difficulty === "easy") {
+    if (level === "easy") {
         HighScoreUpdate(highScores.easy, "easyLevelHighScore", "easy")
-    } else if (difficulty === "medium") {
+    } else if (level === "medium") {
         HighScoreUpdate(highScores.medium, "mediumLevelHighScore", "medium")
     } else {
         HighScoreUpdate(highScores.hard, "hardLevelHighScore", "hard")
     }
 
-    const scoreMessage = newHighScore ? `New highscore of ${totalPoints}` : `You scored ${totalPoints} points`
+    const scoreMessage = newHighScore ? `Well done!  new highscore of ${totalPoints}` : `You scored ${totalPoints} points`
 
     return (
         <div>
-            {scoreMessage}
-            <h2>High Scores</h2>
-            <p> {`You highest score at the easy Level is ${highScores.easy}`} </p>
-            <p> {`You highest score at the medium Level is ${highScores.medium}`} </p>
-            <p> {`You highest score at the hard Level is ${highScores.hard}`} </p>
-            <Link to="/"> Play again</Link>
+            <h2>{scoreMessage}! </h2>
+            <p><Link to="/highscores"> View high scores</Link> </p>      
+            <p><Link to="/"> Play again</Link></p>
         </div>
     )
 }

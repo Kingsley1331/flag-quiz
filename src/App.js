@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import "./App.scss";
 import "./level-selection.scss";
+import "./modal.scss";
 
 import Home from './pages/home';
 import Game from './pages/game';
-import Results from './pages/results';
 import HighScores from './pages/highscores';
 
 
@@ -34,8 +34,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/game/:difficulty" element={<Game />} />
-                <Route path="/results/:difficulty" element={<Results />} />
+                <Route path="/game/:level" element={<Game />} />               
                 <Route path="/highscores" element={<HighScores />} />
             </Routes>
         </Router>

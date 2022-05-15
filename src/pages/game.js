@@ -10,6 +10,7 @@ import { useParams, useNavigate } from "react-router-dom"
 
 import Names from "../names";
 import Flags from "../flags";
+import Modal from "../modal";
 
 import {
     highlightSelection,
@@ -34,7 +35,7 @@ const Timer = (props) => {
     const timeLimit = questionDuration * multiplier;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
-   
+
     useEffect(() => {
         let n;
         const countDownTimer = setInterval(() => {
@@ -124,14 +125,14 @@ function nameFlagData(countryData) {
 
 
 function Game() {
-    const { difficulty } = useParams()
+    const { level } = useParams()
     let numberOfSelectedCountries
     let questionDuration
 
-    if (difficulty === "easy") {
+    if (level === "easy") {
         numberOfSelectedCountries = 5;
-        questionDuration = 30;
-    } else if (difficulty === "medium") {
+        questionDuration = 3000;
+    } else if (level === "medium") {
         numberOfSelectedCountries = 6;
         questionDuration = 25;
     } else {
@@ -171,9 +172,11 @@ function Game() {
     const [canSubmitPoints, setCanSubmitPoints] = useState(true);
 
 
-     const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-    
+    const [showModal, setShowModal] = useState(false);
+
+
 
     useEffect(() => {
         async function fetchData() {
@@ -233,15 +236,15 @@ function Game() {
 
             setTotalPoints((total) => {
                 const cumalativePoints = total = total + points;
-                localStorage[`${difficulty}TotalPoints`] = cumalativePoints;
+                localStorage[`${level}TotalPoints`] = cumalativePoints;
                 return cumalativePoints;
             });
 
             /****************************************************************************/
             setCanSubmitPoints(false);
             if (questionNumber === totalNumberOfQuestions) {
-                setTimeout(() => {
-                    navigate(`/results/${difficulty}`);
+                setTimeout(() => {                  
+                    setShowModal(true)
                     pairings.length = 0;
                 }, 2000)
             }
@@ -272,7 +275,7 @@ function Game() {
 
     return (
         <div className="quiz-container">
-            <h1 className="App-header">Flag Quiz</h1>         
+            <h1 className="App-header">Flag Quiz</h1>
             <div ref={containerRef} className="main-container">
                 <div className="country-name-container">
                     <Names
@@ -313,8 +316,10 @@ function Game() {
             </div>
             <p className="question-number">{`Question - ${questionNumber}`}</p>
 
-          
-            <div className="total-points"><p>Level is: <span className="level">{difficulty} </span></p>   <p>Total points: {totalPoints} </p> </div>
+
+            <div className="total-points"><p>Level is: <span className="level">{level} </span></p>   <p>Total points: {totalPoints} </p> </div>
+
+            {showModal && <Modal />}
 
             {!pause && (
                 <Timer
