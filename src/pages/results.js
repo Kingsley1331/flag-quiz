@@ -36,8 +36,7 @@ function Results() {
 
     return (
         <div>
-            <h2>{scoreMessage}! </h2>
-            <p><Link to="/highscores"> View high scores</Link> </p>      
+            <h2>{scoreMessage}! </h2>           
             <p><Link to="/"> Play again</Link></p>
         </div>
     )

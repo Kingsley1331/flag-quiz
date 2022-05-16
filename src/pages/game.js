@@ -23,6 +23,7 @@ import {
 } from "../utility";
 
 import RingSvg from "../RingSvg";
+import Results from './results';
 
 const totalNumberOfQuestions = 3;
 
@@ -319,7 +320,7 @@ function Game() {
 
             <div className="total-points"><p>Level is: <span className="level">{level} </span></p>   <p>Total points: {totalPoints} </p> </div>
 
-            {showModal && <Modal />}
+            {showModal && <Modal> <Results/></Modal>}
 
             {!pause && (
                 <Timer

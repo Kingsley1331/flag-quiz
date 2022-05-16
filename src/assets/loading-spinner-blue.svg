@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="37px" height="9px" viewBox="0 0 37 9">
+    <defs/>
+    <g fill="#0068c8" fill-rule="evenodd">
+        <rect width="6.36396103" height="6.36396103" x="1.31801948" y="1.31801948" transform="rotate(45 4.5 4.5)">
+            <animate attributeName="opacity" attributeType="CSS" begin="0s" dur="1.2s" repeatCount="indefinite" values="0;0;0.25;0.5;1;1;0.5;0.25;0;0;"/>
+        </rect>
+        <rect width="6.36396103" height="6.36396103" x="15.3180195" y="1.31801948" transform="rotate(45 18.5 4.5)">
+            <animate attributeName="opacity" attributeType="CSS" begin="0.15s" dur="1.2s" repeatCount="indefinite" values="0;0;0.25;0.5;1;1;0.5;0.25;0;0;"/>
+        </rect>
+        <rect width="6.36396103" height="6.36396103" x="29.3180195" y="1.31801948" transform="rotate(45 32.5 4.5)">
+            <animate attributeName="opacity" attributeType="CSS" begin="0.3s" dur="1.2s" repeatCount="indefinite" values="0;0;0.25;0.5;1;1;0.5;0.25;0;0;"/>
+        </rect>
+    </g>
+</svg>

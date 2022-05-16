@@ -33,3 +33,11 @@
     background-color: gainsboro;
 
 }
+
+.high-scores{
+    color: lighten(blue, 20);
+    &:hover{
+        color: blue;
+    }
+    cursor: pointer;
+}

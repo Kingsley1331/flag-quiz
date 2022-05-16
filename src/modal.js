@@ -1,10 +1,9 @@
 import React from 'react'
-import Results from './pages/results'
 
-export default function Modal() {
+export default function Modal(props) {
     return (
         <div className='modal'>
-           <Results/>
+           {props.children}
         </div>
     )
 }
