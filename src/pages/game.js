@@ -11,6 +11,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import Names from "../names";
 import Flags from "../flags";
 import Modal from "../modal";
+import Loader from '../loader';
 
 import {
     highlightSelection,
@@ -24,6 +25,8 @@ import {
 
 import RingSvg from "../RingSvg";
 import Results from './results';
+
+
 
 const totalNumberOfQuestions = 3;
 
@@ -271,7 +274,7 @@ function Game() {
 
 
     if (loading) {
-        return <p>loading</p>
+        return <Loader />
     }
 
     return (

@@ -1,6 +1,5 @@
 import React from "react";
-import { useParams, Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 function Results(props) {
     const highScores = {

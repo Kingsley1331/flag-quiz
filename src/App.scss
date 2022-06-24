@@ -179,7 +179,11 @@ button[disabled] {
 }
 
 
-
+.loading-icon{
+    position: fixed;
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
+}
 
 
 
