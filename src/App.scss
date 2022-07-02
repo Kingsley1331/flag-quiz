@@ -1,4 +1,4 @@
-@import './mixins.scss';
+@import "./mixins.scss";
 
 $flagWidth: 100px;
 
@@ -8,7 +8,7 @@ $flagWidth: 100px;
     margin: 10px;
 }
 
-.level{
+.level {
     text-transform: capitalize;
 }
 
@@ -115,7 +115,7 @@ button[disabled] {
     margin: 0 auto;
 }
 
-.quiz-container {  
+.quiz-container {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     border: 1px solid grey;
@@ -124,7 +124,6 @@ button[disabled] {
     background-color: #eeebeb;
     padding-bottom: 70px;
     border-radius: 10px;
-
 }
 
 .main-container {
@@ -134,7 +133,7 @@ button[disabled] {
 }
 
 .timer {
-    text-align: right;  
+    text-align: right;
 }
 
 .App-header {
@@ -145,7 +144,6 @@ button[disabled] {
 
 .total-points {
     grid-column: 3;
-    
 }
 
 .total-points,
@@ -173,52 +171,33 @@ button[disabled] {
     // margin-top: 100px;
 }
 
-
-.selection-container a:last-child{
+.selection-container a:last-child {
     margin-top: 30px;
 }
 
-
-.loading-icon{
+.loading-icon {
     position: fixed;
-    top: calc(50% - 200px);
-    left: calc(50% - 200px);
+    top: calc(50% - 100px);
+    left: calc(50% - 100px);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .back-to-top__action__ring-bg {
-    fill: none;   
+    fill: none;
     stroke-width: 0.125rem;
 }
 
 .back-to-top__action__ring {
-
     fill: none;
     stroke-width: 0.125rem;
     stroke-linecap: butt;
-    -webkit-animation: progress .3s ease-out forwards;
-    animation: progress .3s ease-out forwards;
+    -webkit-animation: progress 0.3s ease-out forwards;
+    animation: progress 0.3s ease-out forwards;
 }
 
 .pageDiv {
     height: 5000px;
     border: 1px solid black;
 }
-
 
 .svgContainer {
     position: relative;
@@ -229,9 +208,27 @@ button[disabled] {
     grid-row: 1;
 }
 
-.timer-svg{
+.timer-svg {
     position: relative;
     top: 82px;
-    left:40px;
+    left: 40px;
     // transform: scale(-1,1);
+}
+
+.level-links {
+    height: fit-content;
+    z-index: 10;
+    margin: 10px;
+    button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        color: blue;
+    }
+    // a {
+    //     text-decoration: none;
+    //     &:visited {
+    //         color: blue;
+    //     }
+    // }
 }

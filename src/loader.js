@@ -1,6 +1,6 @@
 import React from 'react'
 
-import loadingIcon from './assets/loading-spinner.svg'
+import loadingIcon from './assets/spinner_on_white.gif'
 
 export default function Loader() {
     return (

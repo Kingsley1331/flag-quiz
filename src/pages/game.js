@@ -3,15 +3,15 @@ import React, {
     useEffect,
     useReducer,
     useRef,
-    useCallback
+    useCallback,
 } from "react";
 
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Names from "../names";
 import Flags from "../flags";
 import Modal from "../modal";
-import Loader from '../loader';
+import Loader from "../loader";
 
 import {
     highlightSelection,
@@ -20,22 +20,20 @@ import {
     totalStateResetter,
     arrayScrambler,
     createInitialObject,
-    arrayScramblerInput
+    arrayScramblerInput,
 } from "../utility";
 
 import RingSvg from "../RingSvg";
-import Results from './results';
-
-
+import Results from "./results";
+import HomePageModal from "./homePageModal";
 
 const totalNumberOfQuestions = 3;
 
 //maybe move this to another file
 const Timer = (props) => {
+    const { questionDuration, questionNumber } = props;
 
-    const { questionDuration, questionNumber } = props
-
-    const multiplier = 10
+    const multiplier = 10;
     const timeLimit = questionDuration * multiplier;
     const [count, setCount] = useState(0);
     // const [pauseTimer, setPauseTimer] = useState(false);
@@ -76,14 +74,14 @@ const Timer = (props) => {
         };
     }, []);
 
-    const remainingTime = (timeLimit - count)
+    const remainingTime = timeLimit - count;
 
     return (
-        <div className='svgContainer'>
+        <div className="svgContainer">
             <RingSvg count={remainingTime} timeLimit={timeLimit} />
             <div className="timer">{(remainingTime / 10).toFixed(0)}</div>
         </div>
-    )
+    );
 };
 
 function reducer(state, action) {
@@ -126,12 +124,10 @@ function nameFlagData(countryData) {
     return filteredData;
 }
 
-
-
 function Game() {
-    const { level } = useParams()
-    let numberOfSelectedCountries
-    let questionDuration
+    const { level } = useParams();
+    let numberOfSelectedCountries;
+    let questionDuration;
 
     if (level === "easy") {
         numberOfSelectedCountries = 5;
@@ -141,46 +137,35 @@ function Game() {
         questionDuration = 25;
     } else {
         questionDuration = 20;
-        numberOfSelectedCountries = 7
+        numberOfSelectedCountries = 7;
     }
 
-
-    const initialStateObject = createInitialObject(numberOfSelectedCountries)
+    const initialStateObject = createInitialObject(numberOfSelectedCountries);
 
     const [selections, dispatch] = useReducer(reducer, {
         names: initialStateObject,
-        flags: initialStateObject
+        flags: initialStateObject,
     });
 
-
-
-
-
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
-
     const [questionNumber, setQuestionNumber] = useState(1);
     const [totalPoints, setTotalPoints] = useState(0);
-
     const [index, setIndex] = useState(0);
     const updateIndex = useCallback(() => setIndex(index + 1), [index]);
-
     const [pause, setPause] = useState(false);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    const [flagOrder, setFlagOrder] = useState(arrayScrambler(arrayScramblerInput(numberOfSelectedCountries)));
+    const [flagOrder, setFlagOrder] = useState(
+        arrayScrambler(arrayScramblerInput(numberOfSelectedCountries))
+    );
 
     const [freezeCountries, setFreezeCountries] = useState(false);
-
     const [canSubmitPoints, setCanSubmitPoints] = useState(true);
-
-
     const [loading, setLoading] = useState(true);
-
     const [showModal, setShowModal] = useState(false);
-
-
+    const [showHomePageModal, setHomePageShowModal] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -188,7 +173,10 @@ function Game() {
             const data = await response.json();
             console.log(data);
             setLoading(false);
-            let randomlySelectedCountries = arrayOfSelectedCountries(data, numberOfSelectedCountries);
+            let randomlySelectedCountries = arrayOfSelectedCountries(
+                data,
+                numberOfSelectedCountries
+            );
 
             setCountries(nameFlagData(randomlySelectedCountries));
 
@@ -237,9 +225,8 @@ function Game() {
             /** this line is responsible for the error(Cannot update a component (`App`) while rendering a different component (`Timer`))
              *  needs to be fixed later ********/
 
-
             setTotalPoints((total) => {
-                const cumalativePoints = total = total + points;
+                const cumalativePoints = (total = total + points);
                 localStorage[`${level}TotalPoints`] = cumalativePoints;
                 return cumalativePoints;
             });
@@ -247,10 +234,10 @@ function Game() {
             /****************************************************************************/
             setCanSubmitPoints(false);
             if (questionNumber === totalNumberOfQuestions) {
-                setTimeout(() => {                  
-                    setShowModal(true)
+                setTimeout(() => {
+                    setShowModal(true);
                     pairings.length = 0;
-                }, 2000)
+                }, 2000);
             }
         }
     };
@@ -267,74 +254,122 @@ function Game() {
             setQuestionNumber(questionNumber + 1);
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        setFlagOrder(arrayScrambler(arrayScramblerInput(numberOfSelectedCountries)));
+        setFlagOrder(
+            arrayScrambler(arrayScramblerInput(numberOfSelectedCountries))
+        );
 
         setLoading(true);
     };
 
-
     if (loading) {
-        return <Loader />
+        return <Loader />;
     }
 
+    const changeLevel = () => {
+        // window.location.pathname = "/";
+        setHomePageShowModal(true);
+    };
+
     return (
-        <div className="quiz-container">
-            <h1 className="App-header">Flag Quiz</h1>
-            <div ref={containerRef} className="main-container">
-                <div className="country-name-container">
-                    <Names
-                        dispatch={dispatch}
-                        countryInfo={countriesFromApi}
-                        gameState={selections}
-                        freezeCountries={freezeCountries}
-                    />
+        <>
+            <div className="quiz-container">
+                <div className="level-links">
+                    <button onClick={changeLevel} className="">
+                        Home
+                    </button>
+
+                    {/* <button
+                        onClick={() => {
+                            changeLevel("medium");
+                        }}
+                        className=""
+                    >
+                        Medium
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            changeLevel("hard");
+                        }}
+                        className=""
+                    >
+                        Hard
+                    </button> */}
+                </div>
+                <h1 className="App-header">Flag Quiz</h1>
+                <div ref={containerRef} className="main-container">
+                    <div className="country-name-container">
+                        <Names
+                            dispatch={dispatch}
+                            countryInfo={countriesFromApi}
+                            gameState={selections}
+                            freezeCountries={freezeCountries}
+                        />
+                    </div>
+
+                    <div className="flag-container">
+                        <Flags
+                            dispatch={dispatch}
+                            countryInfo={countriesFromApi}
+                            gameState={selections}
+                            flagOrder={flagOrder}
+                            freezeCountries={freezeCountries}
+                        />
+                    </div>
+                    {canSubmitPoints && (
+                        <button
+                            type="submit"
+                            onClick={addPoints}
+                            className="submit"
+                        >
+                            Submit answers
+                        </button>
+                    )}
+                    {questionNumber < totalNumberOfQuestions &&
+                        !canSubmitPoints && (
+                            <button
+                                className="next"
+                                type="submit"
+                                onClick={moveToNextQuestion}
+                            >
+                                Next question
+                            </button>
+                        )}
+                </div>
+                <p className="question-number">{`Question - ${questionNumber}`}</p>
+
+                <div className="total-points">
+                    <p>
+                        Level is: <span className="level">{level} </span>
+                    </p>
+                    <p>Total points: {totalPoints} </p>
                 </div>
 
-                <div className="flag-container">
-                    <Flags
-                        dispatch={dispatch}
-                        countryInfo={countriesFromApi}
-                        gameState={selections}
-                        flagOrder={flagOrder}
-                        freezeCountries={freezeCountries}
-                    />
-                </div>
-                {canSubmitPoints && (
-                    <button
-                        type="submit"
-                        onClick={addPoints}
-                        className="submit"
-                    >
-                        Submit answers
-                    </button>
+                {showModal && (
+                    <Modal>
+                        <Results />
+                    </Modal>
                 )}
-                {questionNumber < totalNumberOfQuestions && !canSubmitPoints && (
-                    <button
-                        className="next"
-                        type="submit"
-                        onClick={moveToNextQuestion}
-                    >
-                        Next question
-                    </button>
+
+                {showHomePageModal && (
+                    <Modal>
+                        <HomePageModal
+                            setHomePageShowModal={setHomePageShowModal}
+                        />
+                    </Modal>
+                )}
+
+                {!pause && (
+                    <Timer
+                        key={index}
+                        addPoints={addPoints}
+                        questionNumber={questionNumber}
+                        questionDuration={questionDuration}
+                    />
                 )}
             </div>
-            <p className="question-number">{`Question - ${questionNumber}`}</p>
-
-
-            <div className="total-points"><p>Level is: <span className="level">{level} </span></p>   <p>Total points: {totalPoints} </p> </div>
-
-            {showModal && <Modal> <Results/></Modal>}
-
-            {!pause && (
-                <Timer
-                    key={index}
-                    addPoints={addPoints}
-                    questionNumber={questionNumber}
-                    questionDuration={questionDuration}
-                />
-            )}
-        </div>
-    )
+        </>
+    );
 }
 
-export default Game
+export default Game;
