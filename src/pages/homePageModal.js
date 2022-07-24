@@ -7,14 +7,17 @@ function HomePageModal(props) {
     };
 
     return (
-        <div>
+        <div className="modal-div">
             <h2>Go back to home page</h2>
             Your progress will be lost are you still sure you want to go back to
             the home page?
-            <button>
-                <Link to="/"> Yes</Link>
-            </button>
-            <button onClick={closeModal}> No</button>
+            <div className="buttons-container">
+                <Link to="/">
+                    <span>Yes</span>
+                </Link>
+
+                <p onClick={closeModal}> No</p>
+            </div>
         </div>
     );
 }

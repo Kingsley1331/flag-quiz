@@ -1,16 +1,15 @@
 import React from "react";
-import { useParams, Link } from 'react-router-dom';
-
+import { useParams, Link } from "react-router-dom";
 
 function Results() {
-    const { level } = useParams()
-    const totalPoints = parseInt(localStorage[`${level}TotalPoints`])
+    const { level } = useParams();
+    const totalPoints = parseInt(localStorage[`${level}TotalPoints`]);
 
     const highScores = {
-        easy: parseInt(localStorage['easyLevelHighScore']),
-        medium: parseInt(localStorage['mediumLevelHighScore']),
-        hard: parseInt(localStorage['hardLevelHighScore'])
-    }
+        easy: parseInt(localStorage["easyLevelHighScore"]),
+        medium: parseInt(localStorage["mediumLevelHighScore"]),
+        hard: parseInt(localStorage["hardLevelHighScore"]),
+    };
 
     let newHighScore = false;
 
@@ -23,23 +22,26 @@ function Results() {
         }
     }
 
-
     if (level === "easy") {
-        HighScoreUpdate(highScores.easy, "easyLevelHighScore", "easy")
+        HighScoreUpdate(highScores.easy, "easyLevelHighScore", "easy");
     } else if (level === "medium") {
-        HighScoreUpdate(highScores.medium, "mediumLevelHighScore", "medium")
+        HighScoreUpdate(highScores.medium, "mediumLevelHighScore", "medium");
     } else {
-        HighScoreUpdate(highScores.hard, "hardLevelHighScore", "hard")
+        HighScoreUpdate(highScores.hard, "hardLevelHighScore", "hard");
     }
 
-    const scoreMessage = newHighScore ? `Well done!  new highscore of ${totalPoints}` : `You scored ${totalPoints} points`
+    const scoreMessage = newHighScore
+        ? `Well done!  new highscore of ${totalPoints}`
+        : `You scored ${totalPoints} points`;
 
     return (
-        <div>
-            <h2>{scoreMessage}! </h2>           
-            <p><Link to="/"> Play again</Link></p>
+        <div className="modal-div">
+            <h2>{scoreMessage}! </h2>
+            <p>
+                <Link to="/"> Play again</Link>
+            </p>
         </div>
-    )
+    );
 }
 
-export default Results
+export default Results;

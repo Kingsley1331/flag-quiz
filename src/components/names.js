@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { dispatcher, stateResetter } from "./utility";
+import { dispatcher, stateResetter } from "../utility";
 const Names = (props) => {
     const { countryInfo, dispatch, gameState, freezeCountries } = props;
 

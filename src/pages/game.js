@@ -8,10 +8,10 @@ import React, {
 
 import { useParams, useNavigate, Link } from "react-router-dom";
 
-import Names from "../names";
-import Flags from "../flags";
-import Modal from "../modal";
-import Loader from "../loader";
+import Names from "../components/names";
+import Flags from "../components/flags";
+import Modal from "../components/modal";
+import Loader from "../components/loader";
 
 import {
     highlightSelection,
@@ -23,11 +23,11 @@ import {
     arrayScramblerInput,
 } from "../utility";
 
-import RingSvg from "../RingSvg";
+import RingSvg from "../components/RingSvg";
 import Results from "./results";
 import HomePageModal from "./homePageModal";
 
-const totalNumberOfQuestions = 3;
+const totalNumberOfQuestions = 10;
 
 //maybe move this to another file
 const Timer = (props) => {
@@ -131,7 +131,7 @@ function Game() {
 
     if (level === "easy") {
         numberOfSelectedCountries = 5;
-        questionDuration = 3000;
+        questionDuration = 30;
     } else if (level === "medium") {
         numberOfSelectedCountries = 6;
         questionDuration = 25;
@@ -336,7 +336,7 @@ function Game() {
                             </button>
                         )}
                 </div>
-                <p className="question-number">{`Question - ${questionNumber}`}</p>
+                <p className="question-number">{`Question - ${questionNumber} of ${totalNumberOfQuestions}`}</p>
 
                 <div className="total-points">
                     <p>

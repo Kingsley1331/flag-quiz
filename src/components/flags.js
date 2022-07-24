@@ -7,10 +7,10 @@ import {
     dispatcher,
     stateResetter,
     doWeHavePairing,
-} from "./utility";
+} from "../utility";
 
-import tick from "./assets/tick.svg";
-import cross from "./assets/cross.svg";
+import tick from "./../assets/tick.svg";
+import cross from "./../assets/cross.svg";
 
 const Flags = (props) => {
     let { countryInfo, dispatch, gameState, flagOrder, freezeCountries } =
