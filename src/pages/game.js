@@ -6,12 +6,13 @@ import React, {
     useCallback,
 } from "react";
 
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Names from "../components/names";
 import Flags from "../components/flags";
 import Modal from "../components/modal";
 import Loader from "../components/loader";
+import Timer from "../components/timer";
 
 import {
     highlightSelection,
@@ -23,66 +24,10 @@ import {
     arrayScramblerInput,
 } from "../utility";
 
-import RingSvg from "../components/RingSvg";
 import Results from "./results";
 import HomePageModal from "./homePageModal";
 
-const totalNumberOfQuestions = 10;
-
-//maybe move this to another file
-const Timer = (props) => {
-    const { questionDuration, questionNumber } = props;
-
-    const multiplier = 10;
-    const timeLimit = questionDuration * multiplier;
-    const [count, setCount] = useState(0);
-    // const [pauseTimer, setPauseTimer] = useState(false);
-
-    useEffect(() => {
-        let n;
-        const countDownTimer = setInterval(() => {
-            setCount((currentCount) => {
-                if (currentCount < timeLimit - 1) {
-                    return currentCount + 1;
-                } else {
-                    if (questionNumber <= totalNumberOfQuestions) {
-                        //runs when countdown runs to 0
-
-                        //if statement used because code within setCount runs twice for every
-                        //interval however the addpoints function should only run once per interval
-                        if (n) {
-                            props.addPoints();
-                        }
-
-                        n = currentCount;
-                    }
-
-                    clearInterval(countDownTimer);
-
-                    return currentCount + 1;
-                }
-            });
-        }, 100);
-
-        // setPauseTimer(props.pause);
-        // if (pauseTimer) {
-        //     clearInterval(countDownTimer);
-        // }
-
-        return () => {
-            clearInterval(countDownTimer);
-        };
-    }, []);
-
-    const remainingTime = timeLimit - count;
-
-    return (
-        <div className="svgContainer">
-            <RingSvg count={remainingTime} timeLimit={timeLimit} />
-            <div className="timer">{(remainingTime / 10).toFixed(0)}</div>
-        </div>
-    );
-};
+const totalNumberOfQuestions = 3;
 
 function reducer(state, action) {
     const index = action.flag ? action.flag.index : action.name.index;
@@ -154,8 +99,6 @@ function Game() {
     const updateIndex = useCallback(() => setIndex(index + 1), [index]);
     const [pause, setPause] = useState(false);
 
-    const navigate = useNavigate();
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     const [flagOrder, setFlagOrder] = useState(
         arrayScrambler(arrayScramblerInput(numberOfSelectedCountries))
@@ -205,18 +148,14 @@ function Game() {
         }
     }, [selections]);
 
-    // console.log("countries", selections.names);
-    // console.log("flags", selections.flags);
-
     const addPoints = () => {
         if (canSubmitPoints) {
             let points = 0;
-            // console.log(pairings);
+
             pairings.forEach((pair) => {
                 if (pair.flag === pair.name.name) {
                     points++;
                 }
-                // return points;
             });
 
             setPause(true);
@@ -266,7 +205,6 @@ function Game() {
     }
 
     const changeLevel = () => {
-        // window.location.pathname = "/";
         setHomePageShowModal(true);
     };
 
@@ -277,24 +215,6 @@ function Game() {
                     <button onClick={changeLevel} className="">
                         Home
                     </button>
-
-                    {/* <button
-                        onClick={() => {
-                            changeLevel("medium");
-                        }}
-                        className=""
-                    >
-                        Medium
-                    </button>
-
-                    <button
-                        onClick={() => {
-                            changeLevel("hard");
-                        }}
-                        className=""
-                    >
-                        Hard
-                    </button> */}
                 </div>
                 <h1 className="App-header">Flag Quiz</h1>
                 <div ref={containerRef} className="main-container">
@@ -365,6 +285,7 @@ function Game() {
                         addPoints={addPoints}
                         questionNumber={questionNumber}
                         questionDuration={questionDuration}
+                        totalNumberOfQuestions={totalNumberOfQuestions}
                     />
                 )}
             </div>
