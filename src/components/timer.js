@@ -1,14 +1,20 @@
 import RingSvg from "../components/RingSvg";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 const Timer = (props) => {
-    const { questionDuration, questionNumber, totalNumberOfQuestions } = props;
+    const {
+        questionDuration,
+        questionNumber,
+        totalNumberOfQuestions,
+        count,
+        setCount,
+    } = props;
 
     const multiplier = 10;
     const timeLimit = questionDuration * multiplier;
-    const [count, setCount] = useState(0);
 
     useEffect(() => {
+        setCount(0);
         let count;
         const countDownTimer = setInterval(() => {
             setCount((currentCount) => {

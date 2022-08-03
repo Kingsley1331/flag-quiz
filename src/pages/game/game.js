@@ -6,13 +6,13 @@ import React, {
     useCallback,
 } from "react";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import Names from "../components/names";
-import Flags from "../components/flags";
-import Modal from "../components/modal";
-import Loader from "../components/loader";
-import Timer from "../components/timer";
+import Names from "../../components/names";
+import Flags from "../../components/flags";
+import Modal from "../../components/modal";
+import Loader from "../../components/loader";
+import Timer from "../../components/timer";
 
 import {
     highlightSelection,
@@ -22,52 +22,14 @@ import {
     arrayScrambler,
     createInitialObject,
     arrayScramblerInput,
-} from "../utility";
+} from "../../utility";
 
-import Results from "./results";
-import HomePageModal from "./homePageModal";
+import Results from "../results";
+import HomePageModal from "../homePageModal";
+import reducer from "./reducer";
+import nameFlagData from "./gameUtility";
 
 const totalNumberOfQuestions = 3;
-
-function reducer(state, action) {
-    const index = action.flag ? action.flag.index : action.name.index;
-
-    switch (action.type) {
-        case "choose-flag":
-            return {
-                ...state,
-                flags: {
-                    ...state.flags,
-                    [index]: {
-                        country: action.flag[index].country,
-                        status: action.flag[index].status,
-                    },
-                },
-            };
-
-        case "choose-name":
-            return {
-                ...state,
-                names: {
-                    ...state.names,
-                    [index]: {
-                        country: action.name[index].country,
-                        status: action.name[index].status,
-                    },
-                },
-            };
-        default:
-            return state;
-    }
-}
-
-function nameFlagData(countryData) {
-    const filteredData = countryData.map((country) => {
-        return { name: country.name.common, flag: country.flags[0] };
-    });
-
-    return filteredData;
-}
 
 function Game() {
     const { level } = useParams();
@@ -98,6 +60,7 @@ function Game() {
     const [index, setIndex] = useState(0);
     const updateIndex = useCallback(() => setIndex(index + 1), [index]);
     const [pause, setPause] = useState(false);
+    const [count, setCount] = useState(0);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     const [flagOrder, setFlagOrder] = useState(
@@ -286,6 +249,8 @@ function Game() {
                         questionNumber={questionNumber}
                         questionDuration={questionDuration}
                         totalNumberOfQuestions={totalNumberOfQuestions}
+                        count={count}
+                        setCount={setCount}
                     />
                 )}
             </div>

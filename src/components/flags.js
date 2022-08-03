@@ -92,52 +92,9 @@ const Flags = (props) => {
                             }}
                             disabled={freezeCountries}
                             className="flag-button"
-                            onClick={
-                                () => {
-                                    stateManager(index, country.name);
-                                }
-                                //     () => {
-                                //     stateResetter(
-                                //         countryInfo,
-                                //         gameState,
-                                //         dispatch,
-                                //         "choose-flag",
-                                //         "flag"
-                                //     );
-
-                                //     let status =
-                                //         gameState.flags[index].status ===
-                                //             "selected" ||
-                                //         gameState.flags[index].status === "paired"
-                                //             ? "unselected"
-                                //             : "selected";
-
-                                //     dispatcher(
-                                //         dispatch,
-                                //         "choose-flag",
-                                //         status,
-                                //         index,
-                                //         country.name,
-                                //         "flag"
-                                //     );
-
-                                //     setFlagIndex({ index, name: country.name });
-
-                                //     unPairName(
-                                //         gameState,
-                                //         index,
-                                //         dispatch,
-                                //         country.name
-                                //     );
-
-                                //     pairingsManager(
-                                //         gameState,
-                                //         index,
-                                //         country.name,
-                                //         "flag"
-                                //     );
-                                // }
-                            }
+                            onClick={() => {
+                                stateManager(index, country.name);
+                            }}
                             data-set={country.name}
                         ></button>
                         <div className="chosenCountry">
