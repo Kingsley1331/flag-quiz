@@ -46,11 +46,8 @@ const Flags = (props) => {
                 : "selected";
 
         dispatcher(dispatch, "choose-flag", status, index, name, "flag");
-
         setFlagIndex({ index, name });
-
         unPairName(gameState, index, dispatch, name);
-
         pairingsManager(gameState, index, name, "flag");
     }
 

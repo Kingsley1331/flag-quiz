@@ -1,4 +1,4 @@
-@import './mixins.scss';
+@import "./mixins.scss";
 
 .level-selector {
     margin: 10px;
@@ -9,15 +9,15 @@
     }
 
     &.easy {
-        @include button-style($green);
+        @include button-style(white, $green, black, $green, white);
     }
 
     &.medium {
-        @include button-style($orange);
+        @include button-style(white, $orange, black, $orange, white);
     }
 
     &.hard {
-        @include button-style($red);
+        @include button-style(white, $red, black, $red, white);
     }
 }
 
@@ -31,12 +31,11 @@
     width: 500px;
     margin: 0 auto;
     background-color: gainsboro;
-
 }
 
-.high-scores{
+.high-scores {
     color: lighten(blue, 20);
-    &:hover{
+    &:hover {
         color: blue;
     }
     cursor: pointer;

@@ -1,7 +1,6 @@
-
-$green: #49f649;
-$orange : #ffc966;
-$red : #ff6666;
+$green: #4caf50;
+$orange: #f8a60c;
+$red: #ff6666;
 
 @mixin div-style {
     border-radius: 5px;
@@ -10,14 +9,22 @@ $red : #ff6666;
     border: 1px grey solid;
 }
 
-
-@mixin button-style($bg-color) {
-    @include div-style;
+@mixin button-style($bg-color, $border-color, $color, $hover-bg, $hover-color) {
+    // @include div-style;
 
     background-color: $bg-color;
+    color: $color;
+    border: 2px solid $border-color;
+    padding: 10px 8px;
+    min-width: 250px;
+    font-size: 16px;
+    border-radius: 20px;
+    transition-duration: 0.3s;
+
     cursor: pointer;
 
     &:hover {
-        background-color: darken($bg-color, 20%);
+        color: $hover-color;
+        background-color: $hover-bg;
     }
 }

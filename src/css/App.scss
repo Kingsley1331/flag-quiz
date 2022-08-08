@@ -1,5 +1,13 @@
 @import "./mixins.scss";
 
+body,
+.raleway {
+    font-family: Raleway, Arial, sans-serif;
+}
+
+.timer {
+    font-family: Arial, Helvetica, sans-serif;
+}
 $flagWidth: 100px;
 
 .flag {
@@ -148,7 +156,7 @@ button[disabled] {
 
 .total-points,
 .timer {
-    padding-top: 18px;
+    padding-top: 22px;
     font-weight: bold;
 }
 
@@ -164,7 +172,7 @@ button[disabled] {
 
 .submit,
 .next {
-    @include button-style($green);
+    @include button-style($green, $green, white, white, black);
     grid-column: 2;
     margin: 50px auto;
     display: block;

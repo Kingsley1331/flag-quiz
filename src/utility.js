@@ -5,14 +5,11 @@ export function pairingsManager(gameState, index, countryName) {
         pairings = pairings.filter((pairs) => {
             return countryName !== pairs.flag;
         });
-
-        console.log("pairings", pairings);
     }
 }
 
 function addToPairings(pair) {
     pairings.push(pair);
-    console.log("pairings", pairings);
 }
 
 export function addPairedName(name) {
@@ -24,7 +21,7 @@ export function addPairedName(name) {
         }
         return "";
     });
-    console.log("pairedName", pairedName);
+
     return pairedName;
 }
 
@@ -121,8 +118,6 @@ export function totalStateResetter(countryInfo, dispatch, type, dataType) {
 export function doWeHavePairing(gameState, flagIndex, dispatch) {
     const countryNameDetails = isNameSelected(gameState);
 
-    // console.log("gameState", gameState);
-
     if (isNameSelected(gameState).check && isFlagSelected(gameState)) {
         dispatcher(
             dispatch,
@@ -210,10 +205,9 @@ export function arrayScrambler(arr) {
     return scrambledArray;
 }
 
-
 export function createInitialObject(numberOfSelectedCountries) {
-    const initialState = { country: "", status: "unselected" }
-    const stateObject = {}
+    const initialState = { country: "", status: "unselected" };
+    const stateObject = {};
     for (let i = 0; i < numberOfSelectedCountries; i++) {
         stateObject[i] = initialState;
     }
@@ -223,7 +217,7 @@ export function createInitialObject(numberOfSelectedCountries) {
 export function arrayScramblerInput(numberOfSelectedCountries) {
     let inputArray = [];
     for (let i = 1; i < numberOfSelectedCountries + 1; i++) {
-        inputArray.push(i)
+        inputArray.push(i);
     }
 
     return inputArray;

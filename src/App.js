@@ -9,7 +9,6 @@ import "./css/modal.scss";
 
 import Home from "./pages/home";
 import Game from "./pages/game/game";
-import HighScores from "./pages/highscores";
 
 if (!localStorage["easyLevelHighScore"]) {
     localStorage["easyLevelHighScore"] = 0;
