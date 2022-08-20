@@ -48,7 +48,7 @@ const Timer = (props) => {
     const remainingTime = timeLimit - count;
 
     return (
-        <div className="svgContainer">
+        <div className="timer-svg-container">
             <RingSvg count={remainingTime} timeLimit={timeLimit} />
             <div className="timer">{(remainingTime / 10).toFixed(0)}</div>
         </div>

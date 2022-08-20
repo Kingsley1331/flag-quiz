@@ -1,7 +1,7 @@
 @import "./mixins.scss";
 
 .level-selector {
-    margin: 10px;
+    margin: 25px;
 
     a {
         color: black;
@@ -22,7 +22,7 @@
 }
 
 .selection-container {
-    @include div-style;
+    // @include div-style;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +30,7 @@
     height: 500px;
     width: 500px;
     margin: 0 auto;
-    background-color: gainsboro;
+    //background-color: gainsboro;
 }
 
 .high-scores {

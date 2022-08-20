@@ -1,4 +1,5 @@
 @import "./mixins.scss";
+@import "./media-queries.scss";
 
 body,
 .raleway {
@@ -9,6 +10,7 @@ body,
     font-family: Arial, Helvetica, sans-serif;
 }
 $flagWidth: 100px;
+$flagWidthMobile: 70px;
 
 .flag {
     width: 100px;
@@ -49,6 +51,9 @@ h1 {
     border-radius: 10px;
     align-items: center;
     border: 1px solid rgb(190, 186, 186);
+    @include mobile {
+        min-height: unset;
+    }
 }
 
 .flag-container {
@@ -57,6 +62,11 @@ h1 {
     width: 650px;
     display: flex;
     flex-flow: wrap;
+
+    @include mobile {
+        width: fit-content;
+        margin-top: 40px;
+    }
 }
 
 .flag-button {
@@ -71,6 +81,10 @@ h1 {
     width: $flagWidth;
     background-color: #d3cbcb;
     z-index: 1000;
+    @include mobile {
+        height: $flagWidthMobile;
+        width: $flagWidthMobile;
+    }
 }
 
 .country,
@@ -96,6 +110,9 @@ h1 {
     width: $flagWidth;
     text-align: center;
     margin: 0 10px;
+    @include mobile {
+        width: $flagWidthMobile;
+    }
 }
 
 .hide {
@@ -116,6 +133,9 @@ button[disabled] {
 
 .flag-div {
     margin: 15px 5px 25px;
+    @include mobile {
+        margin: 0;
+    }
 }
 
 .mark {
@@ -126,18 +146,24 @@ button[disabled] {
 .quiz-container {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    border: 1px solid grey;
     max-width: 1000px;
     margin: 10px auto 0;
-    background-color: #eeebeb;
     padding-bottom: 70px;
     border-radius: 10px;
+    @include mobile {
+        grid-template-columns: 1fr;
+        padding-bottom: 0;
+    }
 }
 
 .main-container {
     grid-row: 3;
     grid-column: 2;
     width: 100%;
+
+    @include mobile {
+        grid-column: 1;
+    }
 }
 
 .timer {
@@ -148,16 +174,34 @@ button[disabled] {
     margin-top: 30px;
     grid-column: 2;
     grid-row: 1;
+    @include mobile {
+        grid-column: 1;
+        margin-top: 50px;
+    }
 }
 
 .total-points {
     grid-column: 3;
+    @include mobile {
+        grid-column: 1;
+    }
 }
 
 .total-points,
 .timer {
     padding-top: 22px;
     font-weight: bold;
+    @include mobile {
+        text-align: center;
+        margin-top: 90px;
+        grid-row: 1;
+    }
+}
+
+.timer {
+    @include mobile {
+        margin-top: 130px;
+    }
 }
 
 .question-number {
@@ -168,6 +212,11 @@ button[disabled] {
     font-weight: bold;
     grid-column: 2;
     grid-row: 2;
+    @include mobile {
+        grid-column: 1;
+        margin-top: 60px;
+        margin-bottom: 25px;
+    }
 }
 
 .submit,
@@ -176,7 +225,9 @@ button[disabled] {
     grid-column: 2;
     margin: 50px auto;
     display: block;
-    // margin-top: 100px;
+    @include mobile {
+        margin: 35px auto;
+    }
 }
 
 .selection-container a:last-child {
@@ -207,13 +258,18 @@ button[disabled] {
     border: 1px solid black;
 }
 
-.svgContainer {
+.timer-svg-container {
     position: relative;
     top: 0;
     right: 120px;
     width: 100px;
     grid-column: 2;
     grid-row: 1;
+    @include mobile {
+        grid-column: 1;
+        margin: 0 auto;
+        right: 0;
+    }
 }
 
 .timer-svg {
@@ -221,9 +277,13 @@ button[disabled] {
     top: 82px;
     left: 40px;
     // transform: scale(-1,1);
+    @include mobile {
+        left: 0;
+        top: 213px;
+    }
 }
 
-.level-links {
+.home-link {
     height: fit-content;
     z-index: 10;
     margin: 10px;
@@ -233,10 +293,10 @@ button[disabled] {
         cursor: pointer;
         color: blue;
     }
-    // a {
-    //     text-decoration: none;
-    //     &:visited {
-    //         color: blue;
-    //     }
-    // }
+
+    @include mobile {
+        grid-row: 1;
+        grid-column: 1;
+        margin: 0 auto;
+    }
 }

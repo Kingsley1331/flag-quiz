@@ -29,7 +29,7 @@ import HomePageModal from "../homePageModal";
 import reducer from "./reducer";
 import nameFlagData from "./gameUtility";
 
-const totalNumberOfQuestions = 3;
+const totalNumberOfQuestions = 10;
 
 function Game() {
     const { level } = useParams();
@@ -174,7 +174,7 @@ function Game() {
     return (
         <>
             <div className="quiz-container">
-                <div className="level-links">
+                <div className="home-link">
                     <button onClick={changeLevel} className="">
                         Home
                     </button>

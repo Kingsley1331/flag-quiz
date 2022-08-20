@@ -1,0 +1,161 @@
+// You will likely use these 3 mixins:
+//
+// - `tablet`   (>= 768px)
+// - `laptop`   (>= 992px)
+// - `desktop`  (>= 1200px)
+//
+// Also available are:
+//
+// - `portrait`    (< 480px)  - targets phone in portrait mode.
+// - `phone`       (< 768px)  - targets phone.
+// - `mobile`      (< 992px)  - targets phone + tablet.
+// - `nondesktop` (< 1200px)  - targets phone + tablet + laptop.
+//
+// Guide:
+//
+//                               xs         sm              md             lg
+//                       480         768          992                1200
+//                  '     '     '     '     '     '     '     '     '     '     '
+//                        '           '           '                 '
+//     portrait    <------^           '           '                 '
+//     mobile      <------------------^           '                 '
+//     nondesktop  <------------------------------------------------^
+//     nonportrait        ^---------------------------------------------------->
+//     tablet                         ^---------------------------------------->
+//     laptop                                     ^---------------------------->
+//     desktop                                                      ^---------->
+
+////////////////////////////////////////////////////////////////////////////////////
+//
+//      tablet        '    '     '     ^------------------------------------------>
+//      laptop        '    '     '     '           ^------------------------------>
+//     desktop        '    '     '     '           '                 ^------------>
+//                    '    '     '     '           '                 '
+//                    '    480   '   768    '    1024   '     '   1200    '     '
+//                    '    '     '     '           '                 '
+//    portrait        <----^     '     '           '                 '
+//      mobile        <----------------^           '                 '
+//  nondesktop        <----------------------------------------------^
+//
+////////////////////////////////////////////////////////////////////////////////////
+
+$breakpoint-portrait: 480px !default;
+$breakpoint-tablet: 768px !default;
+$breakpoint-laptop: 992px !default;
+$breakpoint-desktop: 1200px !default;
+$breakpoint-landscape: 600px;
+$breakpoint-tablet-landscape: 1024px;
+
+@mixin from($device) {
+    @media screen and (min-width: $device) {
+        @content;
+    }
+}
+
+@mixin until($device) {
+    @media screen and (max-width: ($device - 1px)) {
+        @content;
+    }
+}
+
+@mixin portrait() {
+    @include until($breakpoint-portrait) {
+        @content;
+    }
+}
+
+@mixin mobile() {
+    @include until($breakpoint-tablet) {
+        @content;
+    }
+}
+
+@mixin nonportrait() {
+    @include from($breakpoint-portrait) {
+        @content;
+    }
+}
+
+@mixin nondesktop() {
+    @include until($breakpoint-desktop) {
+        @content;
+    }
+}
+
+@mixin tablet() {
+    @include from($breakpoint-tablet) {
+        @content;
+    }
+}
+
+@mixin laptop() {
+    @include from($breakpoint-laptop) {
+        @content;
+    }
+}
+
+@mixin desktop() {
+    @include from($breakpoint-desktop) {
+        @content;
+    }
+}
+
+@mixin touch() {
+    .v-touch {
+        @content;
+    }
+}
+
+@mixin non-touch() {
+    .v-no-touch {
+        @content;
+    }
+}
+
+@mixin tablet-landscape() {
+    @include from($breakpoint-tablet-landscape) {
+        @content;
+    }
+}
+
+@mixin non-tablet-landscape() {
+    @include until($breakpoint-tablet-landscape) {
+        @content;
+    }
+}
+
+@mixin nonlaptop() {
+    @include until($breakpoint-laptop) {
+        @content;
+    }
+}
+
+@mixin landscape() {
+    @include until($breakpoint-landscape) {
+        @content;
+    }
+}
+
+@mixin nonlandscape() {
+    @include from($breakpoint-landscape) {
+        @content;
+    }
+}
+
+// Custom media queries
+
+/*$custom-min-width: 1150px;
+@mixin custom() {
+    @media screen and (max-width: $custom-min-width) {
+        @content;
+    }
+}*/
+
+// Example
+
+/*.test {
+    display: none;
+    @include tablet {
+        display: block;
+    }
+}*/
