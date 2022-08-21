@@ -8,7 +8,12 @@ function Home() {
     const [showModal, setShowModal] = useState(false);
     return (
         <>
-            <h1>Choose what level to play at </h1>
+            <h1 className="quiz-header">Flag Quiz</h1>
+            <p className="quiz-intro">
+                The aim of the game is to match the flags to the correct
+                countries before the timer runs out.
+            </p>
+            <p className="level-selection-text">Choose what level to play at</p>
 
             <div className="selection-container">
                 <Link to="/game/easy">
@@ -26,7 +31,7 @@ function Home() {
                         setShowModal(true);
                     }}
                 >
-                    High scores
+                    View high scores
                 </p>
 
                 {showModal && (

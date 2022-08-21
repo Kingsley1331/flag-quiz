@@ -1,4 +1,5 @@
 @import "./mixins.scss";
+@import "./media-queries.scss";
 
 .level-selector {
     margin: 25px;
@@ -27,10 +28,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 500px;
+    // height: 500px;
     width: 500px;
     margin: 0 auto;
     //background-color: gainsboro;
+    @include mobile {
+        width: 100%;
+    }
 }
 
 .high-scores {
