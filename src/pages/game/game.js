@@ -5,6 +5,7 @@ import React, {
     useRef,
     useCallback,
 } from "react";
+import flags_background from "./../../assets/flags.jpg";
 
 import { useParams } from "react-router-dom";
 
@@ -174,6 +175,11 @@ function Game() {
     return (
         <>
             <div className="quiz-container">
+                <img
+                    className="background"
+                    src={flags_background}
+                    alt="flags"
+                />
                 <div className="home-link">
                     <button onClick={changeLevel} className="">
                         Home

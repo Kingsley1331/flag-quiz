@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Highscores from "./highscores";
 import Modal from "../components/modal";
+import flags_background from "./../assets/flags.jpg";
 
 function Home() {
     const [showModal, setShowModal] = useState(false);
+
     return (
         <>
+            <img className="background" src={flags_background} alt="flags" />
             <h1 className="quiz-header">Flag Quiz</h1>
             <p className="quiz-intro">
                 The aim of the game is to match the flags to the correct

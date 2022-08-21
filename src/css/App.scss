@@ -9,6 +9,27 @@ body,
     font-family: Raleway, Arial, sans-serif;
 }
 
+body {
+    @include mobile {
+        overflow-x: hidden;
+    }
+}
+
+img.background {
+    filter: blur(5px);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity: 0.1;
+    @include mobile {
+        height: 135vh;
+        filter: blur(3px);
+    }
+}
+
 .timer {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -25,9 +46,12 @@ body,
     font-size: 20px;
     width: 80%;
     margin: 30px auto;
+    position: relative;
+    z-index: 10;
 }
 
 .level-selection-text {
+    position: relative;
     font-weight: 800;
     margin-top: 60px;
     @include tablet {
@@ -36,6 +60,8 @@ body,
 }
 
 .quiz-header {
+    position: relative;
+    z-index: 10;
     margin-top: 40px;
     @include tablet {
         margin-top: 150px;
@@ -63,6 +89,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-content: space-evenly;
+    position: relative;
+    z-index: 10;
 }
 
 .country-name-container {
@@ -257,6 +285,8 @@ button[disabled] {
     grid-column: 2;
     margin: 50px auto;
     display: block;
+    position: relative;
+    z-index: 10;
     @include mobile {
         margin: 35px auto;
     }
@@ -264,6 +294,10 @@ button[disabled] {
 
 .selection-container a:last-child {
     margin-top: 30px;
+}
+
+.selection-container {
+    z-index: 10;
 }
 
 .loading-icon {
