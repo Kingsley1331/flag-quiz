@@ -11,9 +11,9 @@ function Results(props) {
     return (
         <div className="modal-div">
             <h2>High Scores</h2>
-            <p> {`Easy: ${highScores.easy}`} </p>
-            <p> {`Medium: ${highScores.medium}`} </p>
-            <p> {`Hard: ${highScores.hard}`} </p>
+            <p> {`Easy: ${highScores.easy}/50`} </p>
+            <p> {`Medium: ${highScores.medium}/60`} </p>
+            <p> {`Hard: ${highScores.hard}/70`} </p>
             <Link
                 to="/"
                 onClick={() => {

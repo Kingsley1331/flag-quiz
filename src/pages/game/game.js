@@ -1,10 +1,4 @@
-import React, {
-    useState,
-    useEffect,
-    useReducer,
-    useRef,
-    useCallback,
-} from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -57,12 +51,9 @@ function Game() {
     const [countriesFromApi, setCountries] = useState([{ name: "", flag: "" }]);
     const [questionNumber, setQuestionNumber] = useState(1);
     const [totalPoints, setTotalPoints] = useState(0);
-    const [index, setIndex] = useState(0);
-    const updateIndex = useCallback(() => setIndex(index + 1), [index]);
     const [pause, setPause] = useState(false);
     const [count, setCount] = useState(0);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
     const [flagOrder, setFlagOrder] = useState(
         arrayScrambler(arrayScramblerInput(numberOfSelectedCountries))
     );
@@ -85,11 +76,9 @@ function Game() {
             );
 
             setCountries(nameFlagData(randomlySelectedCountries));
-
-            updateIndex();
         }
         fetchData();
-    }, [questionNumber]);
+    }, [numberOfSelectedCountries, questionNumber]);
 
     const containerRef = useRef();
     useEffect(() => {
@@ -109,7 +98,7 @@ function Game() {
                 "hide"
             );
         }
-    }, [selections]);
+    }, [loading, selections]);
 
     const addPoints = () => {
         if (canSubmitPoints) {
@@ -124,16 +113,12 @@ function Game() {
             setPause(true);
             setFreezeCountries(true);
 
-            /** this line is responsible for the error(Cannot update a component (`App`) while rendering a different component (`Timer`))
-             *  needs to be fixed later ********/
-
             setTotalPoints((total) => {
                 const cumalativePoints = (total = total + points);
                 localStorage[`${level}TotalPoints`] = cumalativePoints;
                 return cumalativePoints;
             });
 
-            /****************************************************************************/
             setCanSubmitPoints(false);
             if (questionNumber === totalNumberOfQuestions) {
                 setTimeout(() => {
@@ -155,7 +140,7 @@ function Game() {
         if (questionNumber < totalNumberOfQuestions) {
             setQuestionNumber(questionNumber + 1);
         }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         setFlagOrder(
             arrayScrambler(arrayScramblerInput(numberOfSelectedCountries))
         );
@@ -245,7 +230,6 @@ function Game() {
 
                 {!pause && (
                     <Timer
-                        key={index}
                         addPoints={addPoints}
                         questionNumber={questionNumber}
                         questionDuration={questionDuration}

@@ -15,7 +15,7 @@ const Timer = (props) => {
 
     useEffect(() => {
         setCount(0);
-        let count;
+        let counter;
         const countDownTimer = setInterval(() => {
             setCount((currentCount) => {
                 if (currentCount < timeLimit - 1) {
@@ -26,11 +26,11 @@ const Timer = (props) => {
 
                         //if statement used because code within setCount runs twice for every
                         //interval however the addpoints function should only run once per interval
-                        if (count) {
+                        if (counter) {
                             props.addPoints();
                         }
 
-                        count = currentCount;
+                        counter = currentCount;
                     }
 
                     clearInterval(countDownTimer);
@@ -43,6 +43,7 @@ const Timer = (props) => {
         return () => {
             clearInterval(countDownTimer);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const remainingTime = timeLimit - count;

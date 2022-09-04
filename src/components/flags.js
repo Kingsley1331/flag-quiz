@@ -20,6 +20,7 @@ const Flags = (props) => {
 
     useEffect(() => {
         doWeHavePairing(gameState, flagIndex, dispatch);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameState]);
 
     let removeBackgroundColor;
