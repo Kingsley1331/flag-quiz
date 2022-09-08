@@ -10,6 +10,15 @@ import "./css/modal.scss";
 import Home from "./pages/home";
 import Game from "./pages/game/game";
 
+// To avoid repition turn these if blocks into a function that takes the level
+/**
+ * localStorage = {
+ *  easyLevelHighScore: 0, 
+ *  mediumLevelHighScore: 0,
+ *  hardLevelHighScore: 0
+ *  }
+ */
+
 if (!localStorage["easyLevelHighScore"]) {
     localStorage["easyLevelHighScore"] = 0;
 }

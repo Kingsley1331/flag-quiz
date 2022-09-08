@@ -2,6 +2,21 @@ import RingSvg from "../components/RingSvg";
 import React, { useEffect } from "react";
 
 const Timer = (props) => {
+    /** It would be better to move count and setCount into this component
+      * There are 2 reasons
+      * 
+      * A - Simplicity
+      * This is because in order to keep things simple you want to avoid sharing
+      * logic, states and variables between components unless you have to. 
+      * It is much easier to fix bugs and reason about the application when each component 
+      * is self contained, the number of potential connections increased exponentially 
+      * when each component is talking every other one
+      * 
+      * B - unnecessary renders
+      * setting the state in the parent causes unnecessary re-renders in the parent component
+      * every 100ms when setCount is called, this can slow down the application
+     */
+
     const {
         questionDuration,
         questionNumber,
@@ -13,11 +28,14 @@ const Timer = (props) => {
     const multiplier = 10;
     const timeLimit = questionDuration * multiplier;
 
+    
     useEffect(() => {
         setCount(0);
         let counter;
         const countDownTimer = setInterval(() => {
+            // console.log('test')
             setCount((currentCount) => {
+                
                 if (currentCount < timeLimit - 1) {
                     return currentCount + 1;
                 } else {

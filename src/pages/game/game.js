@@ -27,8 +27,16 @@ const totalNumberOfQuestions = 10;
 
 function Game() {
     const { level } = useParams();
+    /** As a general rule no variables are created at the top level of a component
+      * Use useState() instead
+      * The reason is that on every re-render the variables are going to be reset 
+    */
     let numberOfSelectedCountries;
     let questionDuration;
+
+    /** To prevent the code below running on every render
+      * you can place the if block in a useEffect()
+     */
 
     if (level === "easy") {
         numberOfSelectedCountries = 5;
@@ -42,6 +50,9 @@ function Game() {
     }
 
     const initialStateObject = createInitialObject(numberOfSelectedCountries);
+
+    // console.log('initialStateObject', initialStateObject)
+    console.log('hello')
 
     const [selections, dispatch] = useReducer(reducer, {
         names: initialStateObject,
