@@ -25,7 +25,7 @@ const Timer = (props) => {
         setCount,
     } = props;
 
-    /** Whenever you have constants it standard practice to declare them outside of the component
+    /** Whenever you have constants it is standard practice to declare them outside of the component
      * and use all caps in the variable name e.g
      * const MULTIPLIER = 10
      */
@@ -36,7 +36,7 @@ const Timer = (props) => {
         setCount(0);
         let counter;
         const countDownTimer = setInterval(() => {
-            setCount((currentCount) => {        
+            setCount((currentCount) => {
                 if (currentCount < timeLimit - 1) {
                     return currentCount + 1;
                 } else {

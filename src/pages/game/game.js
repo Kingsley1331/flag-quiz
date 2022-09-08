@@ -30,6 +30,7 @@ function Game() {
     /** As a general rule no variables are created at the top level of a component
       * Use useState() instead
       * The reason is that on every re-render the variables are going to be reset 
+      * however useState remembers their latest values
     */
     let numberOfSelectedCountries;
     let questionDuration;
