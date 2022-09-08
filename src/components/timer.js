@@ -9,11 +9,11 @@ const Timer = (props) => {
       * This is because in order to keep things simple you want to avoid sharing
       * logic, states and variables between components unless you have to. 
       * It is much easier to fix bugs and reason about the application when each component 
-      * is self contained, the number of potential connections increased exponentially 
+      * is self contained, the number of potential connections increases exponentially 
       * when each component is talking every other one
       * 
       * B - unnecessary renders
-      * setting the state in the parent causes unnecessary re-renders in the parent component
+      * Setting the state in the parent causes unnecessary re-renders in the parent component
       * every 100ms when setCount is called, this can slow down the application
      */
 
