@@ -51,9 +51,6 @@ function Game() {
 
     const initialStateObject = createInitialObject(numberOfSelectedCountries);
 
-    // console.log('initialStateObject', initialStateObject)
-    console.log('hello')
-
     const [selections, dispatch] = useReducer(reducer, {
         names: initialStateObject,
         flags: initialStateObject,

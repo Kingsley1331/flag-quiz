@@ -25,17 +25,18 @@ const Timer = (props) => {
         setCount,
     } = props;
 
+    /** Whenever you have constants it standard practice to declare them outside of the component
+     * and use all caps in the variable name e.g
+     * const MULTIPLIER = 10
+     */
     const multiplier = 10;
     const timeLimit = questionDuration * multiplier;
 
-    
     useEffect(() => {
         setCount(0);
         let counter;
         const countDownTimer = setInterval(() => {
-            // console.log('test')
-            setCount((currentCount) => {
-                
+            setCount((currentCount) => {        
                 if (currentCount < timeLimit - 1) {
                     return currentCount + 1;
                 } else {
@@ -56,7 +57,7 @@ const Timer = (props) => {
                     return currentCount + 1;
                 }
             });
-        }, 100);
+        }, 100); // create a constant for the 100ms
 
         return () => {
             clearInterval(countDownTimer);

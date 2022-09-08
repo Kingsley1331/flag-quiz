@@ -10,13 +10,9 @@ import "./css/modal.scss";
 import Home from "./pages/home";
 import Game from "./pages/game/game";
 
-// To avoid repition turn these if blocks into a function that takes the level
-/**
- * localStorage = {
- *  easyLevelHighScore: 0, 
- *  mediumLevelHighScore: 0,
- *  hardLevelHighScore: 0
- *  }
+/** To avoid repitition turn these if blocks into a function that takes the level
+  * maybe you can replace the if blocks with a function call, or find away to update 
+  * them in one go
  */
 
 if (!localStorage["easyLevelHighScore"]) {
